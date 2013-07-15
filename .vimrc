@@ -26,6 +26,8 @@ Bundle 'chrisbra/NrrwRgn'
 Bundle 'eraserhd/vim-ios'
 " Align text based on a character or pattern
 Bundle 'godlygeek/tabular'
+" Make NERDTree work with tabs
+Bundle 'jistr/vim-nerdtree-tabs'
 " Full path fuzzy finder
 Bundle 'kien/ctrlp.vim'
 " Provides a simple way to use motions in Vim
@@ -40,6 +42,8 @@ Bundle 'msanders/cocoa.vim'
 Bundle 'pangloss/vim-javascript'
 " Provides snippet managemen, similar to TextMate
 Bundle 'SirVer/ultisnips'
+" Visualize file structure
+Bundle 'scrooloose/nerdtree'
 " Use multiple selections
 Bundle 'terryma/vim-multiple-cursors'
 " Molokai colorscheme
