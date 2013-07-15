@@ -22,8 +22,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 " Edit isolated portions of a file
 Bundle 'chrisbra/NrrwRgn'
-" iOS support
-Bundle 'eraserhd/vim-ios'
 " Align text based on a character or pattern
 Bundle 'godlygeek/tabular'
 " Make NERDTree work with tabs
@@ -36,8 +34,6 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mbbill/undotree'
 " Show start screen on naked Vim startup
 Bundle 'mhinz/vim-startify'
-" Cocoa/Objective-C support
-Bundle 'msanders/cocoa.vim'
 " Syntax and indent supoort for JavaScript
 Bundle 'pangloss/vim-javascript'
 " Provides snippet managemen, similar to TextMate
