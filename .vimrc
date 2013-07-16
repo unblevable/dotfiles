@@ -28,6 +28,8 @@ Bundle 'godlygeek/tabular'
 Bundle 'jistr/vim-nerdtree-tabs'
 " Full path fuzzy finder
 Bundle 'kien/ctrlp.vim'
+" Python support
+Bundle 'klen/python-mode'
 " Provides a simple way to use motions in Vim
 Bundle 'Lokaltog/vim-easymotion'
 " Show a side panel to visualize undo branches
@@ -42,7 +44,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'scrooloose/nerdtree'
 " Use multiple selections
 Bundle 'terryma/vim-multiple-cursors'
-" Molokai colorscheme
+" Molokai color scheme
 Bundle 'tomasr/molokai'
 " Toggle comments
 Bundle 'tomtom/tcomment_vim'
@@ -331,3 +333,8 @@ function! Preserve(command)
     let @/=_s
     call cursor(l, c)
 endfunction
+
+" Python support
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead *.py set nocindent
+autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
