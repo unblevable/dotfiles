@@ -20,6 +20,8 @@ call vundle#rc()
 
 " Manage Vundle with Vundle
 Bundle 'gmarik/vundle'
+" Move across camelCased and snake_cased words
+Bundle 'bkad/CamelCaseMotion'
 " Edit isolated portions of a file
 Bundle 'chrisbra/NrrwRgn'
 " Align text based on a character or pattern
