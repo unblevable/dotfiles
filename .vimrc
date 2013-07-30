@@ -187,6 +187,8 @@ set list
 set listchars=tab:▸\ ,eol:¬
 
 " Leader maps -----------------------------------------------------------------
+" NERDTree Tabs; toggle panel
+map <leader>n <plug>NERDTreeTabsToggle<cr>
 " T-Comment; toggle comment
 nmap <leader>c <c-_><c-_>
 vmap <leader>c <c-_><c-_>
@@ -241,8 +243,8 @@ vnoremap <silent> <s-right> :tabnext<cr>
 nnoremap <silent> <s-left> :tabprevious<cr>
 vnoremap <silent> <s-left> :tabprevious<cr>
 " Go to last active tab
-nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<CR>
-vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<CR>
+nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
 " Auto-commands ---------------------------------------------------------------
 " Return to last known position when opening file
