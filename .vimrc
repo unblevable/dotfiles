@@ -40,7 +40,9 @@ Bundle 'mbbill/undotree'
 Bundle 'mhinz/vim-startify'
 " Syntax and indent supoort for JavaScript
 Bundle 'pangloss/vim-javascript'
-" Provides snippet managemen, similar to TextMate
+" Provide insert mode auto-completion for quotes, brackets, etc.
+Bundle 'Raimondi/delimitMate'
+" Provide snippet management, similar to TextMate
 Bundle 'SirVer/ultisnips'
 " Visualize file structure
 Bundle 'scrooloose/nerdtree'
