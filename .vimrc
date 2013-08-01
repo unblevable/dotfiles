@@ -78,7 +78,6 @@ let g:EasyMotion_do_mapping=0
 let g:UltiSnipsExpandTrigger="<c-j>"
 
 " ...and done!
-filetype on
 filetype plugin indent on
 
 " Colors ----------------------------------------------------------------------
@@ -216,7 +215,7 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>0 :tablast<Enter>
+noremap <leader>0 :tablast<cr>
 
 " Overriding maps -------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
@@ -234,8 +233,8 @@ vnoremap 0 ^
 nnoremap <tab> v%
 vnoremap <tab> v%
 " Go to command mode
-nnoremap <Enter> :
-vnoremap <Enter> :
+nnoremap <cr> :
+vnoremap <cr> :
 
 " Maps for commands -----------------------------------------------------------
 " Go to next tab
