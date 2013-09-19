@@ -79,6 +79,8 @@ let g:EasyMotion_leader_key="<Leader>"
 let g:EasyMotion_do_mapping=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
+" Decrease latency for ycm
+let g:ycm_allow_changing_updatetime = 0
 
 " ...and done!
 filetype plugin indent on
