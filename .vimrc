@@ -20,6 +20,23 @@ call vundle#rc()
 
 " Manage Vundle with Vundle
 Bundle 'gmarik/vundle'
+
+" Molokai color scheme
+Bundle 'tomasr/molokai'
+
+" Elixir support
+Bundle 'elixir-lang/vim-elixir'
+" CSS3 support
+Bundle 'hail2u/vim-css3-syntax'
+" Python support
+Bundle 'klen/python-mode'
+" Javascript support
+Bundle 'pangloss/vim-javascript'
+" Rails support
+Bundle 'tpope/vim-rails'
+" HTML support
+Bundle 'vim-scripts/indenthtml.vim'
+
 " Move across camelCased and snake_cased words
 Bundle 'bkad/CamelCaseMotion'
 " Edit isolated portions of a file
@@ -30,40 +47,28 @@ Bundle 'godlygeek/tabular'
 Bundle 'jistr/vim-nerdtree-tabs'
 " Full path fuzzy finder
 Bundle 'kien/ctrlp.vim'
-" Python support
-Bundle 'klen/python-mode'
 " Provides a simple way to use motions in Vim
 Bundle 'Lokaltog/vim-easymotion'
 " Show a side panel to visualize undo branches
 Bundle 'mbbill/undotree'
 " Show start screen on naked Vim startup
 Bundle 'mhinz/vim-startify'
-" Syntax and indent supoort for JavaScript
-Bundle 'pangloss/vim-javascript'
 " Provide snippet management, similar to TextMate
 Bundle 'SirVer/ultisnips'
 " Visualize file structure
 Bundle 'scrooloose/nerdtree'
 " Use multiple selections
 Bundle 'terryma/vim-multiple-cursors'
-" Molokai color scheme
-Bundle 'tomasr/molokai'
 " Toggle comments
 Bundle 'tomtom/tcomment_vim'
 " Repeat maps with '.' supported plugins
 Bundle 'tpope/vim-repeat'
-" Vim for Rails
-Bundle 'tpope/vim-rails'
 " Provide mappings for parentheses, brackets, quotes, tags, etc.
 Bundle 'tpope/vim-surround'
 " Fuzzy-search code completion
 Bundle 'Valloric/YouCompleteMe'
 " Highlight enclosing HTML/XML tags
 Bundle 'Valloric/MatchTagAlways'
-" CSS3 syntax support
-Bundle 'hail2u/vim-css3-syntax'
-" HTML indent support
-Bundle 'vim-scripts/indenthtml.vim'
 " Configure % to match words and regular expressions
 Bundle 'vim-scripts/matchit.zip'
 
