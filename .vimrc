@@ -41,6 +41,8 @@ Bundle 'vim-scripts/indenthtml.vim'
 Bundle 'bkad/CamelCaseMotion'
 " Edit isolated portions of a file
 Bundle 'chrisbra/NrrwRgn'
+" Allow collaborative editing
+Bundle 'Floobits/floobits-vim'
 " Align text based on a character or pattern
 Bundle 'godlygeek/tabular'
 " Make NERDTree work with tabs
@@ -73,6 +75,10 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle 'vim-scripts/matchit.zip'
 
 " Set globals for plugins...
+" Open a newly created file in a new tab
+let g:ctrlp_open_new_file='t'
+" Open new tabs after the last tab
+let g:ctrlp_tabpage_position='al'
 " Set default leader to be a single leader
 let g:EasyMotion_leader_key="<Leader>"
 " Prevent default mappings
