@@ -274,12 +274,6 @@ function! ShowTabLine()
   let s = '' " complete tabline goes here
   " loop through each tab page
   for t in range(tabpagenr('$'))
-    " select the highlighting for the buffer names
-    if t + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
     " empty space
     let s .= ' '
     " set the tab page number (for mouse clicks)
@@ -326,6 +320,14 @@ function! ShowTabLine()
     " switch to no underlining and add final space to buffer list
     "let s .= '%#TabLineSel#' . ' '
     let s .= ' '
+    " select the highlighting for the buffer names
+    if t + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+      " append an asterisk as well to indicate current tab
+      let s .= '*'
+    else
+      let s .= '%#TabLine#'
+    endif
   endfor
   " after the last tab fill with TabLineFill and reset tab page nr
   let s .= '%#TabLineFill#%T'
