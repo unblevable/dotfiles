@@ -319,7 +319,7 @@ function! ShowTabLine()
     endif
     " switch to no underlining and add final space to buffer list
     "let s .= '%#TabLineSel#' . ' '
-    let s .= ' '
+    " let s .= ' '
     " select the highlighting for the buffer names
     if t + 1 == tabpagenr()
       let s .= '%#TabLineSel#'
