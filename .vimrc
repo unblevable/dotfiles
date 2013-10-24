@@ -104,6 +104,9 @@ highlight TablineFill term=none cterm=none ctermbg=none guibg=none
 highlight Tabline term=none cterm=none ctermbg=none guibg=none
 highlight TablineSel term=none cterm=none ctermbg=none guibg=none
 
+" Make line number background transparent
+highlight LineNr ctermbg=none
+
 " Globals ---------------------------------------------------------------------
 " Set leader
 let mapleader=' '
