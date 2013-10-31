@@ -92,7 +92,7 @@ let g:ycm_allow_changing_updatetime = 0
 filetype plugin indent on
 
 " Colors ----------------------------------------------------------------------
-" Set terminal to use 256 colors
+" Set terminal to use 255 colors
 set t_Co=256
 " Turn on syntax highlighting
 syntax on
@@ -112,6 +112,12 @@ highlight LineNr ctermbg=none
 let mapleader=' '
 " Set last active tab to 1 on start
 let g:lasttab = 1
+
+" Writing
+" Make a directory for dictionaries and thesauruses
+silent !mkdir ~/.vim/txt > /dev/null 2>&1
+" download from http://www.gutenburg.org/dirs/etext02/mthes10.zip
+set thesaurus+=~/.vim/txt/mthesaur.txt
 
 " Saving and undoing ----------------------------------------------------------
 " Automatically read changes to file outside of Vim
@@ -208,10 +214,10 @@ map <leader>n <plug>NERDTreeTabsToggle<cr>
 nmap <leader>c <c-_><c-_>
 vmap <leader>c <c-_><c-_>
 " Copy and paste to clipboard
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
+nnoremap <leader>y "*y
+vnoremap <leader>y "*y
+nnoremap <leader>p "*p
+vnoremap <leader>p "*p
 " Insert horizontal line below current line and its line length (cool!)
 nnoremap <leader>= yypVr=
 vnoremap <leader>= <Esc>yypVr=
