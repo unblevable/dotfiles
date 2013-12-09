@@ -71,6 +71,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'Valloric/YouCompleteMe'
 " Highlight enclosing HTML/XML tags
 Bundle 'Valloric/MatchTagAlways'
+" Ruby support
+Bundle 'vim-ruby/vim-ruby'
 " Configure % to match words and regular expressions
 Bundle 'vim-scripts/matchit.zip'
 
