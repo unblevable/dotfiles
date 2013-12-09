@@ -195,6 +195,9 @@ set shiftwidth=4
 " Toggle paste mode to paste text that won't be autoindented
 set pastetoggle=<F2>
 
+" Ruby
+autocmd BufRead,BufNewFile *.rb setlocal sr et ts=2 sts=2 sw=2
+
 " Text & whitespace -----------------------------------------------------------
 " Set recommended encoding for GTK+ 2 environments
 set encoding=utf-8
