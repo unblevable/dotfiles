@@ -51,6 +51,8 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 " Provides a simple way to use motions in Vim
 Bundle 'Lokaltog/vim-easymotion'
+" Tern-based JavaScript support
+Bundle 'marijnh/tern_for_vim'
 " Show a side panel to visualize undo branches
 Bundle 'mbbill/undotree'
 " Show start screen on naked Vim startup
@@ -108,6 +110,9 @@ highlight TablineSel term=none cterm=none ctermbg=none guibg=none
 
 " Make line number background transparent
 highlight LineNr ctermbg=none
+
+" Make background match terminal background
+highlight Normal ctermbg=none
 
 " Globals ---------------------------------------------------------------------
 " Set leader
