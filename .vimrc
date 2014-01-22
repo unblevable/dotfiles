@@ -53,6 +53,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 " Tern-based JavaScript support
 Bundle 'marijnh/tern_for_vim'
+" Speed up HTML + CSS editing
+Bundle 'mattn/emmet-vim'
 " Show a side panel to visualize undo branches
 Bundle 'mbbill/undotree'
 " Show start screen on naked Vim startup
@@ -89,6 +91,9 @@ let g:EasyMotion_leader_key="<Leader>"
 let g:EasyMotion_do_mapping=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
+" Enable Emmet just for HTML & CSS
+let g:user_emmet_install_global=0
+autocmd FileType html,css EmmetInstall
 " Decrease latency for ycm
 let g:ycm_allow_changing_updatetime = 0
 
