@@ -36,6 +36,8 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-rails'
 " HTML support
 Bundle 'vim-scripts/indenthtml.vim'
+" Slim templating engine support
+Bundle 'slim-template/vim-slim'
 
 " Move across camelCased and snake_cased words
 Bundle 'bkad/CamelCaseMotion'
