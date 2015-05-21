@@ -15,72 +15,76 @@ endif
 " Plugins " -------------------------------------------------------------------
 " Configure Vundle and bundles...
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " Manage Vundle with Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " Molokai color scheme
-Bundle 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 
 " Elixir support
-Bundle 'elixir-lang/vim-elixir'
+Plugin 'elixir-lang/vim-elixir'
+" Dockerfile support
+Plugin 'ekalinin/Dockerfile.vim'
 " CSS3 support
-Bundle 'hail2u/vim-css3-syntax'
+Plugin 'hail2u/vim-css3-syntax'
 " Python support
-Bundle 'klen/python-mode'
+Plugin 'klen/python-mode'
 " Javascript support
-Bundle 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 " Rails support
-Bundle 'tpope/vim-rails'
+Plugin 'tpope/vim-rails'
 " HTML support
-Bundle 'vim-scripts/indenthtml.vim'
+Plugin 'vim-scripts/indenthtml.vim'
+" Stylus support
+Plugin 'wavded/vim-stylus'
 " Slim templating engine support
-Bundle 'slim-template/vim-slim'
+Plugin 'slim-template/vim-slim'
 
 " Move across camelCased and snake_cased words
-Bundle 'bkad/CamelCaseMotion'
+Plugin 'bkad/CamelCaseMotion'
 " Edit isolated portions of a file
-Bundle 'chrisbra/NrrwRgn'
+Plugin 'chrisbra/NrrwRgn'
 " tmux statusline generator
-Bundle 'edkolev/tmuxline.vim'
+Plugin 'edkolev/tmuxline.vim'
 " Allow collaborative editing
-Bundle 'Floobits/floobits-vim'
+Plugin 'Floobits/floobits-vim'
 " Align text based on a character or pattern
-Bundle 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 " Make NERDTree work with tabs
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 " Full path fuzzy finder
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 " Provides a simple way to use motions in Vim
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 " Tern-based JavaScript support
-Bundle 'marijnh/tern_for_vim'
+Plugin 'marijnh/tern_for_vim'
 " Show a side panel to visualize undo branches
-Bundle 'mbbill/undotree'
+Plugin 'mbbill/undotree'
 " Show start screen on naked Vim startup
-Bundle 'mhinz/vim-startify'
+Plugin 'mhinz/vim-startify'
 " Provide snippet management, similar to TextMate
-Bundle 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 " Visualize file structure
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 " Use multiple selections
-Bundle 'terryma/vim-multiple-cursors'
+Plugin 'terryma/vim-multiple-cursors'
 " Toggle comments
-Bundle 'tomtom/tcomment_vim'
+Plugin 'tomtom/tcomment_vim'
 " Repeat maps with '.' supported plugins
-Bundle 'tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'
 " Provide mappings for parentheses, brackets, quotes, tags, etc.
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 " Fuzzy-search code completion
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 " Highlight enclosing HTML/XML tags
-Bundle 'Valloric/MatchTagAlways'
+Plugin 'Valloric/MatchTagAlways'
 " Ruby support
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
 " Configure % to match words and regular expressions
-Bundle 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/matchit.zip'
 
 " Set globals for plugins...
 " Open a newly created file in a new tab
@@ -95,8 +99,11 @@ let g:EasyMotion_do_mapping=0
 let g:UltiSnipsExpandTrigger="<c-j>"
 " Decrease latency for ycm
 let g:ycm_allow_changing_updatetime = 0
+" Link to 'ycm_extra_conf'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 
 " ...and done!
+call vundle#end()
 filetype plugin indent on
 
 " Colors ----------------------------------------------------------------------
