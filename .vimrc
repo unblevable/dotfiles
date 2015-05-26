@@ -97,6 +97,8 @@ Plugin 'vim-scripts/matchit.zip'
 let g:ctrlp_open_new_file='t'
 " Open new tabs after the last tab
 let g:ctrlp_tabpage_position='al'
+" Don't define default key mappings for fakeclip
+let g:fakeclip_no_default_key_mappings=1
 " Set default leader to be a single leader
 let g:EasyMotion_leader_key="<leader>"
 " Prevent default mappings
@@ -243,12 +245,16 @@ map <leader>n <plug>NERDTreeTabsToggle<cr>
 nmap <leader>c <c-_><c-_>
 vmap <leader>c <c-_><c-_>
 " Use tmux paste buffer as clipboard
-nnoremap <leader>y "&y
-vnoremap <leader>y "&y
-nnoremap <leader>p "&p
-vnoremap <leader>p "&p
+nmap <leader>y <Plug>(fakeclip-screen-y)
+vmap <leader>y v_<Plug>(fakeclip-screen-y)
+nmap <leader>yy <Plug>(fakeclip-screen-Y)
+vmap <leader>yy v_<Plug>(fakeclip-screen-Y)
+nmap <leader>p <Plug>(fakeclip-screen-p)
+vmap <leader>p <Plug>(fakeclip-screen-p)
+nmap <leader>pp v_<Plug>(fakeclip-screen-P)
+vmap <leader>pp v_<Plug>(fakeclip-screen-P
 " Source .vimrc
-nnoremap <leader>s :so ~/.vimrc<Esc>
+nnoremap <silent> <leader>s :so ~/.vimrc<Esc>
 " Create new tab
 map <leader>t :tabnew<cr>
 " Go to tab by number
