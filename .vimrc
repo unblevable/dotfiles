@@ -21,9 +21,13 @@ call vundle#begin()
 " Manage Vundle with Vundle
 Plugin 'gmarik/Vundle.vim'
 
+" Base16 color scheme
+Plugin 'chriskempson/base16-vim'
 " Molokai color scheme
 Plugin 'tomasr/molokai'
 
+" Sass/SCSS support
+Plugin 'cakebaker/scss-syntax.vim'
 " Elixir support
 Plugin 'elixir-lang/vim-elixir'
 " Dockerfile support
@@ -32,6 +36,8 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'hail2u/vim-css3-syntax'
 " Python support
 Plugin 'klen/python-mode'
+" React JSX support
+Plugin 'mxw/vim-jsx'
 " Javascript support
 Plugin 'pangloss/vim-javascript'
 " Rails support
@@ -49,12 +55,12 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/NrrwRgn'
 " tmux statusline generator
 Plugin 'edkolev/tmuxline.vim'
-" Allow collaborative editing
-Plugin 'Floobits/floobits-vim'
 " Align text based on a character or pattern
 Plugin 'godlygeek/tabular'
 " Make NERDTree work with tabs
 Plugin 'jistr/vim-nerdtree-tabs'
+" Provide access to fake clipboard registers (i.e. tmux's paste buffer)
+Plugin 'kana/vim-fakeclip'
 " Full path fuzzy finder
 Plugin 'kien/ctrlp.vim'
 " Provides a simple way to use motions in Vim
@@ -115,9 +121,9 @@ syntax on
 colorscheme molokai
 
 " Make tabs and tabline transparent
-highlight TablineFill term=none cterm=none ctermbg=none guibg=none
-highlight Tabline term=none cterm=none ctermbg=none guibg=none
-highlight TablineSel term=none cterm=none ctermbg=none guibg=none
+highlight TablineFill term=none cterm=none ctermfg=none ctermbg=none guibg=none
+highlight Tabline term=none cterm=none ctermfg=none ctermbg=none guibg=none
+highlight TablineSel term=none cterm=bold ctermfg=none ctermbg=none guibg=none
 
 " Make line number background transparent
 highlight LineNr ctermbg=none
@@ -127,7 +133,7 @@ highlight Normal ctermbg=none
 
 " Globals ---------------------------------------------------------------------
 " Set leader
-let mapleader=' '
+let mapleader='\'
 " Set last active tab to 1 on start
 let g:lasttab = 1
 
@@ -160,6 +166,8 @@ set nofoldenable
 " GUI -------------------------------------------------------------------------
 " Enable mouse support in console
 set mouse=a
+" Allow use of * register as refrence to system clipboard
+" set clipboard=unnamedplus
 " Set line numbering
 set number
 " Set right margin column
@@ -212,7 +220,7 @@ set shiftwidth=4
 set pastetoggle=<F2>
 
 " Ruby
-autocmd BufRead,BufNewFile *.rb setlocal sr et ts=2 sts=2 sw=2
+" autocmd BufRead,BufNewFile *.rb setlocal sr et ts=2 sts=2 sw=2
 
 " Text & whitespace -----------------------------------------------------------
 " Set recommended encoding for GTK+ 2 environments
@@ -234,14 +242,11 @@ map <leader>n <plug>NERDTreeTabsToggle<cr>
 " T-Comment; toggle comment
 nmap <leader>c <c-_><c-_>
 vmap <leader>c <c-_><c-_>
-" Copy and paste to clipboard
-nnoremap <leader>y "*y
-vnoremap <leader>y "*y
-nnoremap <leader>p "*p
-vnoremap <leader>p "*p
-" Insert horizontal line below current line and its line length (cool!)
-nnoremap <leader>= yypVr=
-vnoremap <leader>= <Esc>yypVr=
+" Use tmux paste buffer as clipboard
+nnoremap <leader>y "&y
+vnoremap <leader>y "&y
+nnoremap <leader>p "&p
+vnoremap <leader>p "&p
 " Source .vimrc
 nnoremap <leader>s :so ~/.vimrc<Esc>
 " Create new tab
@@ -257,6 +262,9 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+" Switch between 2 and 4 space indents
+nnoremap <leader>+ :set ts=2 sts=2 sw=2<cr>
+nnoremap <leader>= :set ts=4 sts=4 sw=4<cr>
 
 " Overriding maps -------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
