@@ -21,8 +21,6 @@ call vundle#begin()
 " Manage Vundle with Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Base16 color scheme
-Plugin 'chriskempson/base16-vim'
 " Molokai color scheme
 Plugin 'tomasr/molokai'
 
@@ -51,20 +49,16 @@ Plugin 'slim-template/vim-slim'
 
 " Move across camelCased and snake_cased words
 Plugin 'bkad/CamelCaseMotion'
-" Edit isolated portions of a file
-Plugin 'chrisbra/NrrwRgn'
 " tmux statusline generator
 Plugin 'edkolev/tmuxline.vim'
+" Replace fuzzy matcher provided with CtrlP
+Plugin 'FelikZ/ctrlp-py-matcher'
 " Align text based on a character or pattern
 Plugin 'godlygeek/tabular'
-" Make NERDTree work with tabs
-Plugin 'jistr/vim-nerdtree-tabs'
 " Provide access to fake clipboard registers (i.e. tmux's paste buffer)
 Plugin 'kana/vim-fakeclip'
 " Full path fuzzy finder
 Plugin 'kien/ctrlp.vim'
-" Provides a simple way to use motions in Vim
-Plugin 'Lokaltog/vim-easymotion'
 " Tern-based JavaScript support
 Plugin 'marijnh/tern_for_vim'
 " Show a side panel to visualize undo branches
@@ -73,8 +67,6 @@ Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
 " Provide snippet management, similar to TextMate
 Plugin 'SirVer/ultisnips'
-" Visualize file structure
-Plugin 'scrooloose/nerdtree'
 " Use multiple selections
 Plugin 'terryma/vim-multiple-cursors'
 " Toggle comments
@@ -93,6 +85,8 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/matchit.zip'
 
 " Set globals for plugins...
+" Search by filename as opposed to full path by default
+let g:ctrlp_by_filename=1
 " Open a newly created file in a new tab
 let g:ctrlp_open_new_file='t'
 " Open new tabs after the last tab
@@ -106,13 +100,40 @@ let g:EasyMotion_do_mapping=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
 " Decrease latency for ycm
-let g:ycm_allow_changing_updatetime = 0
+let g:ycm_allow_changing_updatetime=0
 " Link to 'ycm_extra_conf'
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+
+" The Silver Searcher (ag)
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " No file limit
+    let g:ctrlp_max_files=0
+
+    " Use ag in CtrlP for listing files.
+    let g:ctrlp_user_command='ag %s -i -l --nogroup --nocolor --hidden -g ""'
+
+    " Ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching=0
+endif
+
+" Use pymatcher as a replacement for the fuzzy matcher provided with CtrlP for
+" performance improvements
+if has('python')
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
 
 " ...and done!
 call vundle#end()
 filetype plugin indent on
+
+" Globals ---------------------------------------------------------------------
+" Set leader
+let mapleader='\'
+" Set last active tab to 1 on start
+let g:lasttab = 1
 
 " Colors ----------------------------------------------------------------------
 " Set terminal to use 255 colors
@@ -132,18 +153,6 @@ highlight LineNr ctermbg=none
 
 " Make background match terminal background
 highlight Normal ctermbg=none
-
-" Globals ---------------------------------------------------------------------
-" Set leader
-let mapleader='\'
-" Set last active tab to 1 on start
-let g:lasttab = 1
-
-" Writing
-" Make a directory for dictionaries and thesauruses
-silent !mkdir ~/.vim/txt > /dev/null 2>&1
-" download from http://www.gutenburg.org/dirs/etext02/mthes10.zip
-set thesaurus+=~/.vim/txt/mthesaur.txt
 
 " Saving and undoing ----------------------------------------------------------
 " Automatically read changes to file outside of Vim
@@ -168,8 +177,6 @@ set nofoldenable
 " GUI -------------------------------------------------------------------------
 " Enable mouse support in console
 set mouse=a
-" Allow use of * register as refrence to system clipboard
-" set clipboard=unnamedplus
 " Set line numbering
 set number
 " Set right margin column
@@ -192,8 +199,6 @@ set tabline=%!ShowTabLine()
 set tabpagemax=15
 
 " Search ----------------------------------------------------------------------
-" Use special characters without escaping in search patterns
-set magic
 " Ignore case in search patterns
 set ignorecase
 " Ignore 'ignore case' when using an uppercase letter in search patterns
@@ -221,9 +226,6 @@ set shiftwidth=4
 " Toggle paste mode to paste text that won't be autoindented
 set pastetoggle=<F2>
 
-" Ruby
-" autocmd BufRead,BufNewFile *.rb setlocal sr et ts=2 sts=2 sw=2
-
 " Text & whitespace -----------------------------------------------------------
 " Set recommended encoding for GTK+ 2 environments
 set encoding=utf-8
@@ -232,18 +234,15 @@ set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
 " Set linebreaks at convenient points
-set linebreak
+" set linebreak
 " Display unprintable characters, specificaly...
 set list
 " ... the tab and endofline characters
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:→\ ,eol:¬
 
 " Leader maps -----------------------------------------------------------------
-" NERDTree Tabs; toggle panel
-map <leader>n <plug>NERDTreeTabsToggle<cr>
 " T-Comment; toggle comment
-nmap <leader>c <c-_><c-_>
-vmap <leader>c <c-_><c-_>
+map <leader>c <c-_><c-_>
 " Use tmux paste buffer as clipboard
 nmap <leader>y <Plug>(fakeclip-screen-y)
 vmap <leader>y v_<Plug>(fakeclip-screen-y)
@@ -254,9 +253,9 @@ vmap <leader>p <Plug>(fakeclip-screen-p)
 nmap <leader>pp v_<Plug>(fakeclip-screen-P)
 vmap <leader>pp v_<Plug>(fakeclip-screen-P
 " Source .vimrc
-nnoremap <silent> <leader>s :so ~/.vimrc<Esc>
+" noremap <silent> <leader>s :so ~/.vimrc<cr>
 " Create new tab
-map <leader>t :tabnew<cr>
+noremap <silent> <leader>t :tabnew<cr>
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -269,27 +268,25 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 " Switch between 2 and 4 space indents
-nnoremap <leader>+ :set ts=2 sts=2 sw=2<cr>
-nnoremap <leader>= :set ts=4 sts=4 sw=4<cr>
+noremap <silent> <leader>= :call ToggleIndentation()<cr>
+" Unhighlight current search
+noremap <silent> <leader>\ :noh<cr>
 
 " Overriding maps -------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
-nnoremap j gj
-vnoremap j gj
-nnoremap k gk
-vnoremap k gk
+" Also, map 0 to ^ for easy access to first non-blank character at the
+" beginning of a line.
+noremap j gj
+noremap k gk
+noremap 0 g^
+noremap ^ g^
+noremap $ g$
 " Use normal regex instead of Vim's custom one
-nnoremap / /\v
-vnoremap / /\v
-" Go to first non-blank character at beginning of line
-nnoremap 0 ^
-vnoremap 0 ^
-" When jumping to matching object, visually select text in between
-nnoremap <tab> v%
-vnoremap <tab> v%
+noremap / /\v
 " Go to command mode
-nnoremap <cr> :
-vnoremap <cr> :
+noremap <cr> :
+" Leave Ex mode--for good
+nnoremap Q <nop>
 
 " Maps for commands -----------------------------------------------------------
 " Go to next tab
@@ -301,6 +298,8 @@ vnoremap <silent> <s-left> :tabprevious<cr>
 " Go to last active tab
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+" Save
+noremap <silent> <Space> :w<cr>
 
 " Auto-commands ---------------------------------------------------------------
 " Return to last known position when opening file
@@ -310,7 +309,12 @@ autocmd FocusLost * :wa
 " Set last active tab after switching tabs
 autocmd TabLeave * let g:lasttab = tabpagenr()
 " Remove trailing whitespace
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+autocmd BufWritePre * :call StripTrailingWhitespaces()
+" Auto-reload .vimrc
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
 " Functions -------------------------------------------------------------------
 " Show tab number
@@ -384,19 +388,26 @@ endfunction
 
 
 " Put cursor back where it was before invoking a command
-function! Preserve(command)
-    " Save last search and cursor position.
+function! StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
     let _s=@/
     let l = line(".")
     let c = col(".")
-    " Execute the command
-    execute a:command
-    " Restore previous search history and cursor position
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history,
+    " and cursor position
     let @/=_s
     call cursor(l, c)
 endfunction
 
-" Python support
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd BufRead *.py set nocindent
-autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
+" Toggle between 2 and 4 space indents
+function! ToggleIndentation()
+    if &tabstop == 4 && &softtabstop == 4 && &shiftwidth == 4
+        set tabstop=2 softtabstop=2 shiftwidth=2
+        echo "Set indentation to 2 spaces."
+    else
+        set tabstop=4 softtabstop=4 shiftwidth=4
+        echo "Set indentation to 4 spaces."
+    endif
+endfunction
