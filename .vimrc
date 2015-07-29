@@ -12,6 +12,9 @@ if has('win32') || has('win64')
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+" Add custom runtimepath for personal installation
+set rtp+=/opt/hg/vim/runtime
+
 " Plugins " -------------------------------------------------------------------
 " Configure Vundle and bundles...
 filetype off
@@ -20,7 +23,14 @@ call vundle#begin()
 
 " Manage Vundle with Vundle
 Plugin 'gmarik/Vundle.vim'
+" Make sure plugins developed locally are compatible with Pathogen
+Plugin 'tpope/vim-pathogen'
 
+" Plugins developed locally
+Plugin 'unblevable/quick-scope'
+
+" Base16 color scheme (eighties)
+Plugin 'chriskempson/base16-vim'
 " Molokai color scheme
 Plugin 'tomasr/molokai'
 
@@ -38,35 +48,52 @@ Plugin 'klen/python-mode'
 Plugin 'mxw/vim-jsx'
 " Javascript support
 Plugin 'pangloss/vim-javascript'
+" Markdown and Github Flavored Markdown support
+Plugin 'plasticboy/vim-markdown'
 " Rails support
 Plugin 'tpope/vim-rails'
+" AutoHotKey support
+Plugin 'autohotkey-ahk'
 " HTML support
 Plugin 'vim-scripts/indenthtml.vim'
+" Ruby support
+Plugin 'vim-ruby/vim-ruby'
 " Stylus support
 Plugin 'wavded/vim-stylus'
 " Slim templating engine support
 Plugin 'slim-template/vim-slim'
 
-" Move across camelCased and snake_cased words
-Plugin 'bkad/CamelCaseMotion'
+" Use custom text objects
+Plugin 'kana/vim-textobj-user'
+" Define text objects based on indentation level
+Plugin 'kana/vim-textobj-indent'
+" Define snake_case or camelCase segments as text objects
+Plugin 'Julian/vim-textobj-variable-segment'
+" Define text objects for parameters of functions
+Plugin 'sgur/vim-textobj-parameter'
+
 " tmux statusline generator
 Plugin 'edkolev/tmuxline.vim'
 " Replace fuzzy matcher provided with CtrlP
 Plugin 'FelikZ/ctrlp-py-matcher'
-" Align text based on a character or pattern
-Plugin 'godlygeek/tabular'
+" Indent-level based motion
+Plugin 'jeetsukumaran/vim-indentwise'
+" Align text based on delimieters
+Plugin 'junegunn/vim-easy-align'
 " Provide access to fake clipboard registers (i.e. tmux's paste buffer)
 Plugin 'kana/vim-fakeclip'
 " Full path fuzzy finder
 Plugin 'kien/ctrlp.vim'
-" Tern-based JavaScript support
-Plugin 'marijnh/tern_for_vim'
 " Show a side panel to visualize undo branches
 Plugin 'mbbill/undotree'
 " Show start screen on naked Vim startup
 Plugin 'mhinz/vim-startify'
+" NERDTree
+Plugin 'scrooloose/nerdtree'
 " Provide snippet management, similar to TextMate
 Plugin 'SirVer/ultisnips'
+" Make Vim play nicely with iTerm2 and tmux
+Plugin 'sjl/vitality.vim'
 " Use multiple selections
 Plugin 'terryma/vim-multiple-cursors'
 " Toggle comments
@@ -76,11 +103,8 @@ Plugin 'tpope/vim-repeat'
 " Provide mappings for parentheses, brackets, quotes, tags, etc.
 Plugin 'tpope/vim-surround'
 " Fuzzy-search code completion
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " Highlight enclosing HTML/XML tags
-Plugin 'Valloric/MatchTagAlways'
-" Ruby support
-Plugin 'vim-ruby/vim-ruby'
 " Configure % to match words and regular expressions
 Plugin 'vim-scripts/matchit.zip'
 
@@ -93,12 +117,10 @@ let g:ctrlp_open_new_file='t'
 let g:ctrlp_tabpage_position='al'
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
-" Set default leader to be a single leader
-let g:EasyMotion_leader_key="<leader>"
-" Prevent default mappings
-let g:EasyMotion_do_mapping=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
+" Disable default mappings
+let g:vim_markdown_no_default_key_mappings=1
 " Decrease latency for ycm
 let g:ycm_allow_changing_updatetime=0
 " Link to 'ycm_extra_conf'
@@ -138,15 +160,31 @@ let g:lasttab = 1
 " Colors ----------------------------------------------------------------------
 " Set terminal to use 255 colors
 set t_Co=256
+" Set terminal type to use
+set term=xterm-256color
 " Turn on syntax highlighting
 syntax on
-" Use a color scheme based on TextMates' 'Monokai'
+" Use dark theme of color scheme
+set background=light
+" Use a color scheme based on TextMates' Monokai
 colorscheme molokai
+
+" Mute lime green color in molokai
+if g:colors_name ==? 'molokai'
+    highlight Directory ctermfg=155 cterm=bold
+    highlight Exception ctermfg=155 cterm=bold
+    highlight Function ctermfg=155
+    highlight PreCondit ctermfg=155 cterm=bold
+    highlight PreProc ctermfg=155
+    highlight SignColumn ctermfg=155 ctermbg=235
+
+    highlight CursorLine ctermbg=235
+endif
 
 " Make tabs and tabline transparent
 highlight TablineFill term=none cterm=none ctermfg=none ctermbg=none guibg=none
 highlight Tabline term=none cterm=none ctermfg=none ctermbg=none guibg=none
-highlight TablineSel term=none cterm=bold ctermfg=none ctermbg=none guibg=none
+highlight TablineSel term=none cterm=none ctermfg=none ctermbg=none guibg=none
 
 " Make line number background transparent
 highlight LineNr ctermbg=none
@@ -197,6 +235,8 @@ set showtabline=2
 set tabline=%!ShowTabLine()
 " Increase max number of tabs that will open at startup
 set tabpagemax=15
+" Eliminate ESC delays
+set ttimeoutlen=0
 
 " Search ----------------------------------------------------------------------
 " Ignore case in search patterns
@@ -218,11 +258,11 @@ set shiftround
 " Use spaces instead of tabs
 set expandtab
 " Set tab to four spaces
-set tabstop=4
+set tabstop=2
 " Delete number of spaces according to tab width
-set softtabstop=4
+set softtabstop=2
 " Indent with four spaces even with the indentation commands and 'smart tab'
-set shiftwidth=4
+set shiftwidth=2
 " Toggle paste mode to paste text that won't be autoindented
 set pastetoggle=<F2>
 
@@ -233,6 +273,8 @@ set encoding=utf-8
 set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
+" Set maximum width of text that can be inserted
+" set textwidth=80
 " Set linebreaks at convenient points
 " set linebreak
 " Display unprintable characters, specificaly...
@@ -241,21 +283,23 @@ set list
 set listchars=tab:→\ ,eol:¬
 
 " Leader maps -----------------------------------------------------------------
+" NERDTree toggle
+nmap <leader>n :NERDTreeToggle<cr>
+vmap <leader>n :NERDTreeToggle<cr>
+" quick-scope; toggle
+nmap <leader>q <plug>(QuickScopeToggle)
+vmap <leader>q <plug>(QuickScopeToggle)
+" Undotree; toggle
+nnoremap<leader>g :UndotreeToggle<cr>
 " T-Comment; toggle comment
 map <leader>c <c-_><c-_>
 " Use tmux paste buffer as clipboard
-nmap <leader>y <Plug>(fakeclip-screen-y)
-vmap <leader>y v_<Plug>(fakeclip-screen-y)
-nmap <leader>yy <Plug>(fakeclip-screen-Y)
-vmap <leader>yy v_<Plug>(fakeclip-screen-Y)
+nmap <leader>y <Plug>(fakeclip-screen-Y)
+vmap <leader>y v_<Plug>(fakeclip-screen-Y)
 nmap <leader>p <Plug>(fakeclip-screen-p)
-vmap <leader>p <Plug>(fakeclip-screen-p)
-nmap <leader>pp v_<Plug>(fakeclip-screen-P)
-vmap <leader>pp v_<Plug>(fakeclip-screen-P
+vmap <leader>p v_<Plug>(fakeclip-screen-p)
 " Source .vimrc
-" noremap <silent> <leader>s :so ~/.vimrc<cr>
-" Create new tab
-noremap <silent> <leader>t :tabnew<cr>
+noremap <silent> <leader>s :so $MYVIMRC<cr>
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -271,6 +315,8 @@ noremap <leader>0 :tablast<cr>
 noremap <silent> <leader>= :call ToggleIndentation()<cr>
 " Unhighlight current search
 noremap <silent> <leader>\ :noh<cr>
+" Add semicolon to end of line without losing cursor position (uses 'q' mark)
+noremap <silent> <leader>; mqA;<esc>`q
 
 " Overriding maps -------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
@@ -287,31 +333,35 @@ noremap / /\v
 noremap <cr> :
 " Leave Ex mode--for good
 nnoremap Q <nop>
-
-" Maps for commands -----------------------------------------------------------
-" Go to next tab
-nnoremap <silent> <s-right> :tabnext<cr>
-vnoremap <silent> <s-right> :tabnext<cr>
-" Go to previous tab
-nnoremap <silent> <s-left> :tabprevious<cr>
-vnoremap <silent> <s-left> :tabprevious<cr>
 " Go to last active tab
-nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-" Save
-noremap <silent> <Space> :w<cr>
+noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+" vim-easy-align
+" nmap <space> <plug>(EasyAlign)
+" vmap <space> <plug>(EasyAlign)
 
 " Auto-commands ---------------------------------------------------------------
 " Return to last known position when opening file
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup returntolastposition " {
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END " }
 " Save on losing focus
-autocmd FocusLost * :wa
+augroup saveall " {
+    autocmd!
+    autocmd FocusLost * :wa
+augroup END " }
 " Set last active tab after switching tabs
-autocmd TabLeave * let g:lasttab = tabpagenr()
+augroup setlastactivetab " {
+    autocmd!
+    autocmd TabLeave * let g:lasttab = tabpagenr()
+augroup END " }
 " Remove trailing whitespace
-autocmd BufWritePre * :call StripTrailingWhitespaces()
+augroup removetrailingwhitespace " {
+    autocmd!
+    autocmd BufWritePre * :call StripTrailingWhitespaces()
+augroup END " }
 " Auto-reload .vimrc
-augroup reload_vimrc " {
+augroup reloadvimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
