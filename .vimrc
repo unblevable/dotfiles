@@ -46,8 +46,10 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'klen/python-mode'
 " React JSX support
 Plugin 'mxw/vim-jsx'
-" Javascript support
-Plugin 'pangloss/vim-javascript'
+" JavaScript support
+Plugin 'othree/yajs.vim'
+" JavaScript libraries
+Plugin 'othree/javascript-libraries-syntax.vim'
 " Markdown and Github Flavored Markdown support
 Plugin 'plasticboy/vim-markdown'
 " Rails support
@@ -63,11 +65,13 @@ Plugin 'wavded/vim-stylus'
 " Slim templating engine support
 Plugin 'slim-template/vim-slim'
 
+" Define text objects for comments
+Plugin 'glts/vim-textobj-comment'
 " Use custom text objects
 Plugin 'kana/vim-textobj-user'
 " Define text objects based on indentation level
 Plugin 'kana/vim-textobj-indent'
-" Define snake_case or camelCase segments as text objects
+" Define text objects for snake_case or camelCase segments
 Plugin 'Julian/vim-textobj-variable-segment'
 " Define text objects for parameters of functions
 Plugin 'sgur/vim-textobj-parameter'
@@ -88,6 +92,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'mbbill/undotree'
 " Show start screen on naked Vim startup
 Plugin 'mhinz/vim-startify'
+" Auto-complete quotes, parentheses, etc.
+Plugin 'Raimondi/delimitMate'
 " NERDTree
 Plugin 'scrooloose/nerdtree'
 " Provide snippet management, similar to TextMate
@@ -104,9 +110,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 " Fuzzy-search code completion
 " Plugin 'Valloric/YouCompleteMe'
-" Highlight enclosing HTML/XML tags
-" Configure % to match words and regular expressions
-Plugin 'vim-scripts/matchit.zip'
 
 " Set globals for plugins...
 " Search by filename as opposed to full path by default
@@ -115,13 +118,17 @@ let g:ctrlp_by_filename=1
 let g:ctrlp_open_new_file='t'
 " Open new tabs after the last tab
 let g:ctrlp_tabpage_position='al'
+" Turn on expansion of <cr>
+let delimitMate_expand_cr = 1
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
+" Don't define default key mappings for TComment
+let g:tcommentMaps=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
 " Disable default mappings
 let g:vim_markdown_no_default_key_mappings=1
-" Decrease latency for ycm
+" Decrease latency
 let g:ycm_allow_changing_updatetime=0
 " Link to 'ycm_extra_conf'
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
@@ -292,7 +299,9 @@ vmap <leader>q <plug>(QuickScopeToggle)
 " Undotree; toggle
 nnoremap<leader>g :UndotreeToggle<cr>
 " T-Comment; toggle comment
-map <leader>c <c-_><c-_>
+nmap <leader>c  <plug>TComment_<c-_><c-_>
+vmap <leader>c  v_<plug>TComment_<c-_><c-_>
+imap <leader>c  i_<plug>TComment_<c-_><c-_>
 " Use tmux paste buffer as clipboard
 nmap <leader>y <Plug>(fakeclip-screen-Y)
 vmap <leader>y v_<Plug>(fakeclip-screen-Y)
@@ -325,7 +334,7 @@ noremap <silent> <leader>; mqA;<esc>`q
 noremap j gj
 noremap k gk
 noremap 0 g^
-noremap ^ g^
+noremap ^ g0
 noremap $ g$
 " Use normal regex instead of Vim's custom one
 noremap / /\v
@@ -338,6 +347,11 @@ noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 " vim-easy-align
 " nmap <space> <plug>(EasyAlign)
 " vmap <space> <plug>(EasyAlign)
+" vim-indentwise
+nmap [[ <plug>(IndentWisePreviousEqualIndent)
+vmap [[ <plug>(IndentWisePreviousEqualIndent)
+nmap ]] <plug>(IndentWiseNextEqualIndent)
+vmap ]] <plug>(IndentWiseNextEqualIndent)
 
 " Auto-commands ---------------------------------------------------------------
 " Return to last known position when opening file
