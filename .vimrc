@@ -16,100 +16,68 @@ endif
 set rtp+=/opt/hg/vim/runtime
 
 " Plugins " -------------------------------------------------------------------
-" Configure Vundle and bundles...
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Manage Vundle with Vundle
-Plugin 'gmarik/Vundle.vim'
-" Make sure plugins developed locally are compatible with Pathogen
-Plugin 'tpope/vim-pathogen'
+" Configure plugins
+call plug#begin('~/.vim/plugged')
 
 " Plugins developed locally
-Plugin 'unblevable/quick-scope'
+Plug '~/Code/quick-scope'
 
-" Base16 color scheme (eighties)
-Plugin 'chriskempson/base16-vim'
-" Molokai color scheme
-Plugin 'tomasr/molokai'
+" Colorschemes
+Plug 'chriskempson/base16-vim'
+Plug 'tomasr/molokai'
 
-" Sass/SCSS support
-Plugin 'cakebaker/scss-syntax.vim'
-" Elixir support
-Plugin 'elixir-lang/vim-elixir'
-" Dockerfile support
-Plugin 'ekalinin/Dockerfile.vim'
-" CSS3 support
-Plugin 'hail2u/vim-css3-syntax'
-" Python support
-Plugin 'klen/python-mode'
-" React JSX support
-Plugin 'mxw/vim-jsx'
-" JavaScript support
-Plugin 'othree/yajs.vim'
-" JavaScript libraries
-Plugin 'othree/javascript-libraries-syntax.vim'
-" Markdown and Github Flavored Markdown support
-Plugin 'plasticboy/vim-markdown'
-" Rails support
-Plugin 'tpope/vim-rails'
-" AutoHotKey support
-Plugin 'autohotkey-ahk'
-" HTML support
-Plugin 'vim-scripts/indenthtml.vim'
-" Ruby support
-Plugin 'vim-ruby/vim-ruby'
-" Stylus support
-Plugin 'wavded/vim-stylus'
-" Slim templating engine support
-Plugin 'slim-template/vim-slim'
-
-" Define text objects for comments
-Plugin 'glts/vim-textobj-comment'
-" Use custom text objects
-Plugin 'kana/vim-textobj-user'
-" Define text objects based on indentation level
-Plugin 'kana/vim-textobj-indent'
-" Define text objects for snake_case or camelCase segments
-Plugin 'Julian/vim-textobj-variable-segment'
-" Define text objects for parameters of functions
-Plugin 'sgur/vim-textobj-parameter'
+" Syntax
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'klen/python-mode'
+Plug 'pangloss/vim-javascript'
+  \| Plug 'mxw/vim-jsx'
+  \| Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-rails'
+Plug 'vim-scripts/autohotkey-ahk'
+Plug 'vim-scripts/indenthtml.vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'wavded/vim-stylus'
+Plug 'slim-template/vim-slim'
 
 " tmux statusline generator
-Plugin 'edkolev/tmuxline.vim'
-" Replace fuzzy matcher provided with CtrlP
-Plugin 'FelikZ/ctrlp-py-matcher'
+Plug 'edkolev/tmuxline.vim'
 " Indent-level based motion
-Plugin 'jeetsukumaran/vim-indentwise'
+Plug 'jeetsukumaran/vim-indentwise'
 " Align text based on delimieters
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 " Provide access to fake clipboard registers (i.e. tmux's paste buffer)
-Plugin 'kana/vim-fakeclip'
+Plug 'kana/vim-fakeclip'
+" Define custom text objects
+Plug 'kana/vim-textobj-user'
+  \| Plug 'glts/vim-textobj-comment'
+  \| Plug 'kana/vim-textobj-indent'
+  \| Plug 'Julian/vim-textobj-variable-segment'
+  \| Plug 'sgur/vim-textobj-parameter'
 " Full path fuzzy finder
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
+  \| Plug 'FelikZ/ctrlp-py-matcher'
 " Show a side panel to visualize undo branches
-Plugin 'mbbill/undotree'
+Plug 'mbbill/undotree'
 " Show start screen on naked Vim startup
-Plugin 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 " Auto-complete quotes, parentheses, etc.
-Plugin 'Raimondi/delimitMate'
-" NERDTree
-Plugin 'scrooloose/nerdtree'
-" Provide snippet management, similar to TextMate
-Plugin 'SirVer/ultisnips'
-" Make Vim play nicely with iTerm2 and tmux
-Plugin 'sjl/vitality.vim'
-" Use multiple selections
-Plugin 'terryma/vim-multiple-cursors'
-" Toggle comments
-Plugin 'tomtom/tcomment_vim'
-" Repeat maps with '.' supported plugins
-Plugin 'tpope/vim-repeat'
-" Provide mappings for parentheses, brackets, quotes, tags, etc.
-Plugin 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+" Snippet management, similar to TextMate
+Plug 'SirVer/ultisnips'
+" Multiple cursors for multiple simultaneous edits
+Plug 'terryma/vim-multiple-cursors'
+" Commenting
+Plug 'tomtom/tcomment_vim'
+" Repeat custom maps with '.'
+Plug 'tpope/vim-repeat'
+" Provide a 'surround' text-object selection
+Plug 'tpope/vim-surround'
 " Fuzzy-search code completion
-" Plugin 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 " Set globals for plugins...
 " Search by filename as opposed to full path by default
@@ -118,14 +86,20 @@ let g:ctrlp_by_filename=1
 let g:ctrlp_open_new_file='t'
 " Open new tabs after the last tab
 let g:ctrlp_tabpage_position='al'
+" Balance matching pairs
+let delimitMate_balance_matchpairs=1
 " Turn on expansion of <cr>
-let delimitMate_expand_cr = 1
+let delimitMate_expand_cr = 2
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
+" Support JSX highlighting and indenting in JS files
+let g:jsx_ext_required=0
 " Don't define default key mappings for TComment
 let g:tcommentMaps=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
+" Setup syntax for JS libraries
+let g:used_javascript_libs = 'react,flux'
 " Disable default mappings
 let g:vim_markdown_no_default_key_mappings=1
 " Decrease latency
@@ -154,9 +128,9 @@ if has('python')
     let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
 
-" ...and done!
-call vundle#end()
-filetype plugin indent on
+" Add plugins to &runtimepath
+call plug#end()
+"f iletype plugin indent on
 
 " Globals ---------------------------------------------------------------------
 " Set leader
@@ -290,18 +264,15 @@ set list
 set listchars=tab:→\ ,eol:¬
 
 " Leader maps -----------------------------------------------------------------
-" NERDTree toggle
-nmap <leader>n :NERDTreeToggle<cr>
-vmap <leader>n :NERDTreeToggle<cr>
 " quick-scope; toggle
 nmap <leader>q <plug>(QuickScopeToggle)
 vmap <leader>q <plug>(QuickScopeToggle)
 " Undotree; toggle
 nnoremap<leader>g :UndotreeToggle<cr>
 " T-Comment; toggle comment
-nmap <leader>c  <plug>TComment_<c-_><c-_>
-vmap <leader>c  v_<plug>TComment_<c-_><c-_>
-imap <leader>c  i_<plug>TComment_<c-_><c-_>
+nmap <silent> <leader>c  <plug>TComment_<c-_><c-_>
+vmap <silent> <leader>c  v_<plug>TComment_<c-_><c-_>
+imap <silent> <leader>c  i_<plug>TComment_<c-_><c-_>
 " Use tmux paste buffer as clipboard
 nmap <leader>y <Plug>(fakeclip-screen-Y)
 vmap <leader>y v_<Plug>(fakeclip-screen-Y)
@@ -324,18 +295,18 @@ noremap <leader>0 :tablast<cr>
 noremap <silent> <leader>= :call ToggleIndentation()<cr>
 " Unhighlight current search
 noremap <silent> <leader>\ :noh<cr>
-" Add semicolon to end of line without losing cursor position (uses 'q' mark)
-noremap <silent> <leader>; mqA;<esc>`q
+" vim-easy-align
+nmap <leader>e <plug>(EasyAlign)
+vmap <leader>e <plug>(EasyAlign)
 
 " Overriding maps -------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
-" Also, map 0 to ^ for easy access to first non-blank character at the
-" beginning of a line.
 noremap j gj
 noremap k gk
-noremap 0 g^
-noremap ^ g0
-noremap $ g$
+" Map 0 to ^ for easy access to first non-blank character at the beginning of
+" a line.
+noremap 0 ^
+noremap ^ 0
 " Use normal regex instead of Vim's custom one
 noremap / /\v
 " Go to command mode
@@ -344,9 +315,7 @@ noremap <cr> :
 nnoremap Q <nop>
 " Go to last active tab
 noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-" vim-easy-align
-" nmap <space> <plug>(EasyAlign)
-" vmap <space> <plug>(EasyAlign)
+vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 " vim-indentwise
 nmap [[ <plug>(IndentWisePreviousEqualIndent)
 vmap [[ <plug>(IndentWisePreviousEqualIndent)
