@@ -20,7 +20,8 @@ set rtp+=/opt/hg/vim/runtime
 call plug#begin('~/.vim/plugged')
 
 " Plugins developed locally
-Plug '~/Code/quick-scope'
+" Plug '~/Code/quick-scope'
+Plug 'unblevable/quick-scope'
 
 " Colorschemes
 Plug 'chriskempson/base16-vim'
@@ -43,6 +44,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'wavded/vim-stylus'
 Plug 'slim-template/vim-slim'
 
+" Full path fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
 " tmux statusline generator
 Plug 'edkolev/tmuxline.vim'
 " Indent-level based motion
@@ -57,8 +60,6 @@ Plug 'kana/vim-textobj-user'
   \| Plug 'kana/vim-textobj-indent'
   \| Plug 'Julian/vim-textobj-variable-segment'
   \| Plug 'sgur/vim-textobj-parameter'
-" Full path fuzzy finder
-Plug 'kien/ctrlp.vim'
   \| Plug 'FelikZ/ctrlp-py-matcher'
 " Show a side panel to visualize undo branches
 Plug 'mbbill/undotree'
@@ -139,10 +140,10 @@ let mapleader='\'
 let g:lasttab = 1
 
 " Colors ----------------------------------------------------------------------
+" Set terminal type to use
+" set term=xterm-256color
 " Set terminal to use 255 colors
 set t_Co=256
-" Set terminal type to use
-set term=xterm-256color
 " Turn on syntax highlighting
 syntax on
 " Use dark theme of color scheme
