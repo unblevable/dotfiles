@@ -58,9 +58,12 @@ Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-textobj-user'
   \| Plug 'glts/vim-textobj-comment'
   \| Plug 'kana/vim-textobj-indent'
+  \| Plug 'kana/vim-textobj-function'
   \| Plug 'Julian/vim-textobj-variable-segment'
   \| Plug 'sgur/vim-textobj-parameter'
   \| Plug 'FelikZ/ctrlp-py-matcher'
+" Turn Vim's default register into a stack.
+Plug 'maxbrunsfeld/vim-yankstack'
 " Show a side panel to visualize undo branches
 Plug 'mbbill/undotree'
 " Show start screen on naked Vim startup
@@ -95,6 +98,8 @@ let delimitMate_expand_cr = 2
 let g:fakeclip_no_default_key_mappings=1
 " Support JSX highlighting and indenting in JS files
 let g:jsx_ext_required=0
+" Trigger quick-scope highlight on key press
+" let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 " Don't define default key mappings for TComment
 let g:tcommentMaps=0
 " Prevent the plug-in from interfering with YouCompleteMe
@@ -103,6 +108,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:used_javascript_libs = 'react,flux'
 " Disable default mappings
 let g:vim_markdown_no_default_key_mappings=1
+" Load yankstack without default key mappings
+let g:yankstack_map_keys=0
 " Decrease latency
 let g:ycm_allow_changing_updatetime=0
 " Link to 'ycm_extra_conf'
@@ -145,9 +152,9 @@ let g:lasttab = 1
 " Set terminal to use 255 colors
 set t_Co=256
 " Turn on syntax highlighting
-syntax on
+" syntax on
 " Use dark theme of color scheme
-set background=light
+" set background=dark
 " Use a color scheme based on TextMates' Monokai
 colorscheme molokai
 
@@ -165,6 +172,7 @@ endif
 
 " Make tabs and tabline transparent
 highlight TablineFill term=none cterm=none ctermfg=none ctermbg=none guibg=none
+
 highlight Tabline term=none cterm=none ctermfg=none ctermbg=none guibg=none
 highlight TablineSel term=none cterm=none ctermfg=none ctermbg=none guibg=none
 
@@ -265,6 +273,11 @@ set list
 set listchars=tab:→\ ,eol:¬
 
 " Leader maps -----------------------------------------------------------------
+" yankstack
+nmap <leader>o <plug>yankstack_substitute_older_paste
+nmap <leader>O <plug>yankstack_substitute_newer_paste
+vmap <leader>o <plug>yankstack_substitute_older_paste
+vmap <leader>O <plug>yankstack_substitute_newer_paste
 " quick-scope; toggle
 nmap <leader>q <plug>(QuickScopeToggle)
 vmap <leader>q <plug>(QuickScopeToggle)
