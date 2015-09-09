@@ -9,13 +9,13 @@ set nocompatible
 
 " Set Windows compatibility
 if has('win32') || has('win64')
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
 " Add custom runtimepath for personal installation
 set rtp+=/opt/hg/vim/runtime
 
-" Plugins " -------------------------------------------------------------------
+" Plugins " ------------------------------------------------------------------
 " Configure plugins
 call plug#begin('~/.vim/plugged')
 
@@ -34,8 +34,8 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'klen/python-mode'
 Plug 'pangloss/vim-javascript'
-  \| Plug 'mxw/vim-jsx'
-  \| Plug 'othree/javascript-libraries-syntax.vim'
+      \| Plug 'mxw/vim-jsx'
+      \| Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'vim-scripts/autohotkey-ahk'
@@ -56,12 +56,12 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-fakeclip'
 " Define custom text objects
 Plug 'kana/vim-textobj-user'
-  \| Plug 'glts/vim-textobj-comment'
-  \| Plug 'kana/vim-textobj-indent'
-  \| Plug 'kana/vim-textobj-function'
-  \| Plug 'Julian/vim-textobj-variable-segment'
-  \| Plug 'sgur/vim-textobj-parameter'
-  \| Plug 'FelikZ/ctrlp-py-matcher'
+      \| Plug 'glts/vim-textobj-comment'
+      \| Plug 'kana/vim-textobj-indent'
+      \| Plug 'kana/vim-textobj-function'
+      \| Plug 'Julian/vim-textobj-variable-segment'
+      \| Plug 'sgur/vim-textobj-parameter'
+      \| Plug 'FelikZ/ctrlp-py-matcher'
 " Turn Vim's default register into a stack.
 Plug 'maxbrunsfeld/vim-yankstack'
 " Show a side panel to visualize undo branches
@@ -117,36 +117,36 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_
 
 " The Silver Searcher (ag)
 if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-    " No file limit
-    let g:ctrlp_max_files=0
+  " No file limit
+  let g:ctrlp_max_files=0
 
-    " Use ag in CtrlP for listing files.
-    let g:ctrlp_user_command='ag %s -i -l --nogroup --nocolor --hidden -g ""'
+  " Use ag in CtrlP for listing files.
+  let g:ctrlp_user_command='ag %s -i -l --nogroup --nocolor --hidden -g ""'
 
-    " Ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching=0
+  " Ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching=0
 endif
 
 " Use pymatcher as a replacement for the fuzzy matcher provided with CtrlP for
 " performance improvements
 if has('python')
-    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
 
 " Add plugins to &runtimepath
 call plug#end()
 "f iletype plugin indent on
 
-" Globals ---------------------------------------------------------------------
+" Globals --------------------------------------------------------------------
 " Set leader
 let mapleader='\'
 " Set last active tab to 1 on start
 let g:lasttab = 1
 
-" Colors ----------------------------------------------------------------------
+" Colors ---------------------------------------------------------------------
 " Set terminal type to use
 " set term=xterm-256color
 " Set terminal to use 255 colors
@@ -160,14 +160,14 @@ colorscheme molokai
 
 " Mute lime green color in molokai
 if g:colors_name ==? 'molokai'
-    highlight Directory ctermfg=155 cterm=bold
-    highlight Exception ctermfg=155 cterm=bold
-    highlight Function ctermfg=155
-    highlight PreCondit ctermfg=155 cterm=bold
-    highlight PreProc ctermfg=155
-    highlight SignColumn ctermfg=155 ctermbg=235
+  highlight Directory ctermfg=155 cterm=bold
+  highlight Exception ctermfg=155 cterm=bold
+  highlight Function ctermfg=155
+  highlight PreCondit ctermfg=155 cterm=bold
+  highlight PreProc ctermfg=155
+  highlight SignColumn ctermfg=155 ctermbg=235
 
-    highlight CursorLine ctermbg=235
+  highlight CursorLine ctermbg=235
 endif
 
 " Make tabs and tabline transparent
@@ -182,7 +182,7 @@ highlight LineNr ctermbg=none
 " Make background match terminal background
 highlight Normal ctermbg=none
 
-" Saving and undoing ----------------------------------------------------------
+" Saving and undoing ---------------------------------------------------------
 " Automatically read changes to file outside of Vim
 set autoread
 " Enable persistent undo
@@ -194,7 +194,7 @@ set undodir=~/.vim/undos
 silent !mkdir ~/.vim/tmp > /dev/null 2>&1
 set directory=~/.vim/tmp
 
-" Folding  --------------------------------------------------------------------
+" Folding  -------------------------------------------------------------------
 " Set folding based on indent
 set foldmethod=indent
 " Set deepest fold level
@@ -202,7 +202,7 @@ set foldnestmax=3
 " Make folds open by default
 set nofoldenable
 
-" GUI -------------------------------------------------------------------------
+" GUI ------------------------------------------------------------------------
 " Enable mouse support in console
 set mouse=a
 " Set line numbering
@@ -228,7 +228,7 @@ set tabpagemax=15
 " Eliminate ESC delays
 set ttimeoutlen=0
 
-" Search ----------------------------------------------------------------------
+" Search ---------------------------------------------------------------------
 " Ignore case in search patterns
 set ignorecase
 " Ignore 'ignore case' when using an uppercase letter in search patterns
@@ -240,7 +240,7 @@ set incsearch
 " Search and replace globally (on a line) by default
 set gdefault
 
-" Indentation -----------------------------------------------------------------
+" Indentation ----------------------------------------------------------------
 " Copy the indentation from the previous line (non-interfering)
 set autoindent
 " Indent to multiple of 'shiftwidth'
@@ -256,7 +256,7 @@ set shiftwidth=2
 " Toggle paste mode to paste text that won't be autoindented
 set pastetoggle=<F2>
 
-" Text & whitespace -----------------------------------------------------------
+" Text & whitespace ----------------------------------------------------------
 " Set recommended encoding for GTK+ 2 environments
 set encoding=utf-8
 " Backspace over everything in insert mode
@@ -272,7 +272,7 @@ set list
 " ... the tab and endofline characters
 set listchars=tab:→\ ,eol:¬
 
-" Leader maps -----------------------------------------------------------------
+" Leader maps ----------------------------------------------------------------
 " yankstack
 nmap <leader>o <plug>yankstack_substitute_older_paste
 nmap <leader>O <plug>yankstack_substitute_newer_paste
@@ -313,7 +313,7 @@ noremap <silent> <leader>\ :noh<cr>
 nmap <leader>e <plug>(EasyAlign)
 vmap <leader>e <plug>(EasyAlign)
 
-" Overriding maps -------------------------------------------------------------
+" Overriding maps ------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
 noremap j gj
 noremap k gk
@@ -336,34 +336,39 @@ vmap [[ <plug>(IndentWisePreviousEqualIndent)
 nmap ]] <plug>(IndentWiseNextEqualIndent)
 vmap ]] <plug>(IndentWiseNextEqualIndent)
 
-" Auto-commands ---------------------------------------------------------------
+" Auto-commands --------------------------------------------------------------
 " Return to last known position when opening file
 augroup returntolastposition " {
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END " }
 " Save on losing focus
 augroup saveall " {
-    autocmd!
-    autocmd FocusLost * :wa
+  autocmd!
+  autocmd FocusLost * :wa
 augroup END " }
 " Set last active tab after switching tabs
 augroup setlastactivetab " {
-    autocmd!
-    autocmd TabLeave * let g:lasttab = tabpagenr()
+  autocmd!
+  autocmd TabLeave * let g:lasttab = tabpagenr()
 augroup END " }
 " Remove trailing whitespace
 augroup removetrailingwhitespace " {
-    autocmd!
-    autocmd BufWritePre * :call StripTrailingWhitespaces()
+  autocmd!
+  autocmd BufWritePre * :call StripTrailingWhitespaces()
 augroup END " }
 " Auto-reload .vimrc
 augroup reloadvimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
+" Automatically read files when changes are detected outside of Vim
+augroup autoread
+  autocmd!
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * checktime
+augroup END
 
-" Functions -------------------------------------------------------------------
+" Functions ------------------------------------------------------------------
 " Show tab number
 function! ShowTabLine()
   let s = '' " complete tabline goes here
@@ -436,25 +441,25 @@ endfunction
 
 " Put cursor back where it was before invoking a command
 function! StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history,
-    " and cursor position
-    let @/=_s
-    call cursor(l, c)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history,
+  " and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 " Toggle between 2 and 4 space indents
 function! ToggleIndentation()
-    if &tabstop == 4 && &softtabstop == 4 && &shiftwidth == 4
-        set tabstop=2 softtabstop=2 shiftwidth=2
-        echo "Set indentation to 2 spaces."
-    else
-        set tabstop=4 softtabstop=4 shiftwidth=4
-        echo "Set indentation to 4 spaces."
-    endif
+  if &tabstop == 4 && &softtabstop == 4 && &shiftwidth == 4
+    set tabstop=2 softtabstop=2 shiftwidth=2
+    echo "Set indentation to 2 spaces."
+  else
+    set tabstop=4 softtabstop=4 shiftwidth=4
+    echo "Set indentation to 4 spaces."
+  endif
 endfunction
