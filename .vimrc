@@ -48,10 +48,15 @@ Plug 'slim-template/vim-slim'
 Plug 'ctrlpvim/ctrlp.vim'
 " tmux statusline generator
 Plug 'edkolev/tmuxline.vim'
+" Improve HTML and CSS workflow
+Plug 'mattn/emmet-vim'
 " Indent-level based motion
 Plug 'jeetsukumaran/vim-indentwise'
 " Align text based on delimieters
 Plug 'junegunn/vim-easy-align'
+" Distraction-free writing
+Plug 'junegunn/goyo.vim'
+      \| Plug 'junegunn/limelight.vim'
 " Provide access to fake clipboard registers (i.e. tmux's paste buffer)
 Plug 'kana/vim-fakeclip'
 " Define custom text objects
@@ -70,6 +75,9 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 " Auto-complete quotes, parentheses, etc.
 Plug 'Raimondi/delimitMate'
+" Syntax checking
+" Plug 'scrooloose/syntastic'
+"       \| Plug 'walm/jshint.vim'
 " Snippet management, similar to TextMate
 Plug 'SirVer/ultisnips'
 " Multiple cursors for multiple simultaneous edits
@@ -81,7 +89,7 @@ Plug 'tpope/vim-repeat'
 " Provide a 'surround' text-object selection
 Plug 'tpope/vim-surround'
 " Fuzzy-search code completion
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 
 " Set globals for plugins...
 " Search by filename as opposed to full path by default
@@ -93,19 +101,31 @@ let g:ctrlp_tabpage_position='al'
 " Balance matching pairs
 let delimitMate_balance_matchpairs=1
 " Turn on expansion of <cr>
-let delimitMate_expand_cr = 2
+let delimitMate_expand_cr=2
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
 " Support JSX highlighting and indenting in JS files
 let g:jsx_ext_required=0
+
+" Define syntax checkers
+let g:syntastic_javascript_checkers=['eslint']
+
+" Tell syntastic to automatically open and/or close the location list
+let g:syntastic_auto_loc_list=1
+" Run syntax checks when buffers are saved or first loaded
+let g:syntastic_check_on_open=1
+" Skip syntax checks when running :wq and :x
+let g:syntastic_check_on_wq=0
 " Trigger quick-scope highlight on key press
 " let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 " Don't define default key mappings for TComment
 let g:tcommentMaps=0
 " Prevent the plug-in from interfering with YouCompleteMe
 let g:UltiSnipsExpandTrigger="<c-j>"
+" Remap emmet leader key
+let g:user_emmet_leader_key='<leader>e'
 " Setup syntax for JS libraries
-let g:used_javascript_libs = 'react,flux'
+let g:used_javascript_libs='react,flux'
 " Disable default mappings
 let g:vim_markdown_no_default_key_mappings=1
 " Load yankstack without default key mappings
@@ -113,7 +133,9 @@ let g:yankstack_map_keys=0
 " Decrease latency
 let g:ycm_allow_changing_updatetime=0
 " Link to 'ycm_extra_conf'
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+" Turn off diagnostic display features
+let g:ycm_show_diagnostics_ui=0
 
 " The Silver Searcher (ag)
 if executable('ag')
@@ -154,9 +176,9 @@ set t_Co=256
 " Turn on syntax highlighting
 " syntax on
 " Use dark theme of color scheme
-" set background=dark
+set background=dark
 " Use a color scheme based on TextMates' Monokai
-colorscheme molokai
+colorscheme base16-default
 
 " Mute lime green color in molokai
 if g:colors_name ==? 'molokai'
@@ -179,8 +201,8 @@ highlight TablineSel term=none cterm=none ctermfg=none ctermbg=none guibg=none
 " Make line number background transparent
 highlight LineNr ctermbg=none
 
-" Make background match terminal background
-highlight Normal ctermbg=none
+" " Make background match terminal background
+" highlight Normal ctermbg=none
 
 " Saving and undoing ---------------------------------------------------------
 " Automatically read changes to file outside of Vim
@@ -243,6 +265,8 @@ set gdefault
 " Indentation ----------------------------------------------------------------
 " Copy the indentation from the previous line (non-interfering)
 set autoindent
+" Do smart autoindenting when starting a new line
+set smartindent
 " Indent to multiple of 'shiftwidth'
 set shiftround
 " Use spaces instead of tabs
@@ -264,7 +288,7 @@ set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
 " Set maximum width of text that can be inserted
-" set textwidth=80
+set textwidth=78
 " Set linebreaks at convenient points
 " set linebreak
 " Display unprintable characters, specificaly...
@@ -282,7 +306,7 @@ vmap <leader>O <plug>yankstack_substitute_newer_paste
 nmap <leader>q <plug>(QuickScopeToggle)
 vmap <leader>q <plug>(QuickScopeToggle)
 " Undotree; toggle
-nnoremap<leader>g :UndotreeToggle<cr>
+nnoremap<leader>u :UndotreeToggle<cr>
 " T-Comment; toggle comment
 nmap <silent> <leader>c  <plug>TComment_<c-_><c-_>
 vmap <silent> <leader>c  v_<plug>TComment_<c-_><c-_>
@@ -310,8 +334,11 @@ noremap <silent> <leader>= :call ToggleIndentation()<cr>
 " Unhighlight current search
 noremap <silent> <leader>\ :noh<cr>
 " vim-easy-align
-nmap <leader>e <plug>(EasyAlign)
-vmap <leader>e <plug>(EasyAlign)
+nmap <leader>z <plug>(EasyAlign)
+vmap <leader>z <plug>(EasyAlign)
+" goyo + limeight
+nmap <leader>g :Goyo<cr>
+vmap <leader>g :Goyo<cr>
 
 " Overriding maps ------------------------------------------------------------
 " Move across wrapped lines like regular lines (even though 'nowrap' is set...)
