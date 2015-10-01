@@ -13,7 +13,7 @@ if has('win32') || has('win64')
 endif
 
 " Add custom runtimepath for personal installation
-set rtp+=/opt/hg/vim/runtime
+set runtimepath+=/opt/hg/vim/runtime
 
 " Plugins " ------------------------------------------------------------------
 " Configure plugins
@@ -106,10 +106,8 @@ let delimitMate_expand_cr=2
 let g:fakeclip_no_default_key_mappings=1
 " Support JSX highlighting and indenting in JS files
 let g:jsx_ext_required=0
-
 " Define syntax checkers
 let g:syntastic_javascript_checkers=['eslint']
-
 " Tell syntastic to automatically open and/or close the location list
 let g:syntastic_auto_loc_list=1
 " Run syntax checks when buffers are saved or first loaded
@@ -171,10 +169,10 @@ let g:lasttab = 1
 " Colors ---------------------------------------------------------------------
 " Set terminal type to use
 " set term=xterm-256color
-" Set terminal to use 255 colors
-set t_Co=256
+" Filetype support
+filetype plugin indent on
 " Turn on syntax highlighting
-" syntax on
+syntax on
 " Use dark theme of color scheme
 set background=dark
 " Use a color scheme based on TextMates' Monokai
