@@ -287,8 +287,8 @@ set backspace=indent,eol,start
 set nowrap
 " Set maximum width of text that can be inserted
 set textwidth=78
-" Set linebreaks at convenient points
-" set linebreak
+" Only wrap text in comments and with `gq`
+set formatoptions=cq
 " Display unprintable characters, specificaly...
 set list
 " ... the tab and endofline characters
@@ -327,6 +327,7 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+noremap <leader>l :exe "tabn " . g:lasttab<cr>
 " Switch between 2 and 4 space indents
 noremap <silent> <leader>= :call ToggleIndentation()<cr>
 " Unhighlight current search
@@ -353,8 +354,8 @@ noremap <cr> :
 " Leave Ex mode--for good
 nnoremap Q <nop>
 " Go to last active tab
-noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+" noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+" vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 " vim-indentwise
 nmap [[ <plug>(IndentWisePreviousEqualIndent)
 vmap [[ <plug>(IndentWisePreviousEqualIndent)
