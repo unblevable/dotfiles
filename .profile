@@ -15,16 +15,19 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # Elixir
-export PATH="$PATH:/opt/http/elixir-1.0.4/bin"
+export PATH="$PATH:$HOME/Local/elixir/1.1.1/bin"
 
-# docker
+# Docker
 export DOCKER_HOST="tcp://localhost:4243"
 
-# potion
+# Potion
 export PATH="$PATH:/opt/git/potion/bin"
 
 # tmux
 export PATH="$PATH:/opt/http/tmux-1.9a/"
+
+# Elm
+export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
 
 # nvm
 [[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh

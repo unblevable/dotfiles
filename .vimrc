@@ -30,10 +30,15 @@ Plug 'tomasr/molokai'
 " Syntax
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'elixir-lang/vim-elixir'
+Plug 'ElmCast/elm-vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'hail2u/vim-css3-syntax'
+" Plug 'lambdatoast/elm.vim'
 Plug 'klen/python-mode'
-Plug 'pangloss/vim-javascript'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'othree/html5.vim'
+" Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs'
       \| Plug 'mxw/vim-jsx'
       \| Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'plasticboy/vim-markdown'
@@ -84,12 +89,16 @@ Plug 'SirVer/ultisnips'
 Plug 'terryma/vim-multiple-cursors'
 " Commenting
 Plug 'tomtom/tcomment_vim'
+" Add `end` in Ruby, etc.
+Plug 'tpope/vim-endwise'
 " Repeat custom maps with '.'
 Plug 'tpope/vim-repeat'
 " Provide a 'surround' text-object selection
 Plug 'tpope/vim-surround'
 " Fuzzy-search code completion
 Plug 'Valloric/YouCompleteMe'
+" Display indentation levels
+Plug 'Yggdroot/indentLine'
 
 " Set globals for plugins...
 " Search by filename as opposed to full path by default
