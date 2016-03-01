@@ -37,10 +37,10 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'klen/python-mode'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'othree/html5.vim'
+Plug 'othree/yajs.vim'
 " Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs'
-      \| Plug 'mxw/vim-jsx'
-      \| Plug 'othree/javascript-libraries-syntax.vim'
+      " \| Plug 'mxw/vim-jsx'
+      " \| Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'vim-scripts/autohotkey-ahk'
@@ -114,7 +114,7 @@ let delimitMate_expand_cr=2
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
 " Support JSX highlighting and indenting in JS files
-let g:jsx_ext_required=0
+" let g:jsx_ext_required=0
 " Define syntax checkers
 let g:syntastic_javascript_checkers=['eslint']
 " Tell syntastic to automatically open and/or close the location list
@@ -167,7 +167,6 @@ endif
 
 " Add plugins to &runtimepath
 call plug#end()
-"f iletype plugin indent on
 
 " Globals --------------------------------------------------------------------
 " Set leader
