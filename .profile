@@ -34,3 +34,7 @@ export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
 
 # Load RVM into a shell session *as a function*.
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Allegro 5
+# export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+# export C_INCLUDE_PATH=/usr/local/include
