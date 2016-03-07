@@ -15,7 +15,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # Elixir
-export PATH="$PATH:$HOME/Local/elixir/1.1.1/bin"
+export PATH="$PATH:$HOME/Local/elixir/1.2.3/bin"
 
 # Docker
 export DOCKER_HOST="tcp://localhost:4243"
