@@ -11,23 +11,28 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
 
-# Add RVM to PATH for scripting.
-export PATH="$PATH:$HOME/.rvm/bin"
+# platform specific...
+if [[ "$OSTYPE" =~ "^linux" ]]; then
+  # Add RVM to PATH for scripting.
+  export PATH="$PATH:$HOME/.rvm/bin"
 
-# Elixir
-export PATH="$PATH:$HOME/Local/elixir/1.1.1/bin"
+  # Elixir
+  export PATH="$PATH:$HOME/Local/elixir/1.1.1/bin"
 
-# Docker
-export DOCKER_HOST="tcp://localhost:4243"
+  # Docker
+  export DOCKER_HOST="tcp://localhost:4243"
 
-# Potion
-export PATH="$PATH:/opt/git/potion/bin"
+  # Potion
+  export PATH="$PATH:/opt/git/potion/bin"
 
-# tmux
-export PATH="$PATH:/opt/http/tmux-1.9a/"
+  # tmux
+  export PATH="$PATH:/opt/http/tmux-1.9a/"
 
-# Elm
-export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
+  # Elm
+  export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
+fi
+
+# all platforms...
 
 # nvm
 [[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh
