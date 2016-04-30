@@ -16,6 +16,12 @@ endif
 set runtimepath+=/opt/hg/vim/runtime
 
 " Plugins " ------------------------------------------------------------------
+" Automatically install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
 " Configure plugins
 call plug#begin('~/.vim/plugged')
 
@@ -199,13 +205,13 @@ if g:colors_name ==? 'molokai'
 endif
 
 " Make tabs and tabline transparent
-highlight TablineFill term=none cterm=none ctermfg=none ctermbg=none guibg=none
+highlight TablineFill term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE guibg=NONE
 
-highlight Tabline term=none cterm=none ctermfg=none ctermbg=none guibg=none
-highlight TablineSel term=none cterm=none ctermfg=none ctermbg=none guibg=none
+highlight Tabline term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE guibg=NONE
+highlight TablineSel term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE guibg=NONE
 
 " Make line number background transparent
-highlight LineNr ctermbg=none
+highlight LineNr ctermbg=NONE
 
 " " Make background match terminal background
 " highlight Normal ctermbg=none
