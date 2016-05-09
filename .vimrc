@@ -37,16 +37,17 @@ Plug 'tomasr/molokai'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
+Plug 'elzr/vim-json'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'hail2u/vim-css3-syntax'
 " Plug 'lambdatoast/elm.vim'
 Plug 'klen/python-mode'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'othree/html5.vim'
-Plug 'othree/yajs.vim'
-" Plug 'pangloss/vim-javascript'
-      " \| Plug 'mxw/vim-jsx'
-      " \| Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
+      \| Plug 'mxw/vim-jsx'
+      \| Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'vim-scripts/autohotkey-ahk'
@@ -120,7 +121,7 @@ let delimitMate_expand_cr=2
 " Don't define default key mappings for fakeclip
 let g:fakeclip_no_default_key_mappings=1
 " Support JSX highlighting and indenting in JS files
-" let g:jsx_ext_required=0
+let g:jsx_ext_required=0
 " Define syntax checkers
 let g:syntastic_javascript_checkers=['eslint']
 " Tell syntastic to automatically open and/or close the location list
@@ -139,6 +140,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:user_emmet_leader_key='<leader>e'
 " Setup syntax for JS libraries
 let g:used_javascript_libs='react,flux'
+" Disable concealing!
+let g:vim_json_syntax_conceal=0
 " Disable default mappings
 let g:vim_markdown_no_default_key_mappings=1
 " Load yankstack without default key mappings

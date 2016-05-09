@@ -116,3 +116,6 @@ fi
 # set default editor
 export VISUAL=vim
 export EDITOR=vim
+
+# use Vi bindings
+set -o vi
