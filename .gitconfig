@@ -1,0 +1,11 @@
+[apply]
+
+  # Give warnings about whitespace when diffing or applying a patch.
+  whitespace = warn
+
+[core]
+  editor = nvim
+
+[user]
+  email = blsymph@gmail.com
+  name = Brian Le

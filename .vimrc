@@ -193,7 +193,7 @@ syntax on
 " Use dark theme of color scheme
 set background=dark
 " Use a color scheme based on TextMates' Monokai
-colorscheme base16-default
+colorscheme base16-default-dark
 
 " Mute lime green color in molokai
 if g:colors_name ==? 'molokai'
