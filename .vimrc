@@ -306,7 +306,7 @@ set nowrap
 set textwidth=78
 " Only wrap text in comments and with `gq`
 set formatoptions=cq
-" Display unprintable characters, specificaly...
+" Display unprintable characters, specifically...
 set list
 " ... the tab and endofline characters
 set listchars=tab:→\ ,eol:¬
