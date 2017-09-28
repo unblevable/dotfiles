@@ -17,10 +17,13 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export PATH="$PATH:$HOME/.rvm/bin"
 
   # Elixir
-  export PATH="$PATH:$HOME/local/elixir/bin"
+  # export PATH="$PATH:$HOME/local/elixir/bin"
 
   # Docker
   export DOCKER_HOST="tcp://localhost:4243"
+
+  # premake
+  export PATH="$PATH:$HOME/local/premake-core/bin/release"
 
   # Potion
   export PATH="$PATH:/opt/git/potion/bin"
@@ -30,16 +33,21 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
 
   # Elm
   export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
+
+  # Golang
+  export GOPATH="$HOME/.go"
+
+  # This loads nvm.
+  export NVM_DIR="/home/unblevable/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+  # Load RVM into a shell session *as a function*.
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+  # Heroku Toolbelt
+  export PATH="/usr/local/heroku/bin:$PATH"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # Allegro 5
+  # export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+  # export C_INCLUDE_PATH=/usr/local/include
 fi
-
-# all platforms...
-
-# nvm
-[[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh
-
-# Load RVM into a shell session *as a function*.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Allegro 5
-# export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-# export C_INCLUDE_PATH=/usr/local/include

@@ -1,3 +1,10 @@
+# Use Vi bindings.
+set -o vi
+
+# Set the default editor.
+export VISUAL=vim
+export EDITOR=vim
+
 # Use utf-8.
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -112,17 +119,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# Set the default editor.
-export VISUAL=vim
-export EDITOR=vim
-
-# Use Vi bindings.
-set -o vi
-
-# This loads nvm.
-export NVM_DIR="/home/unblevable/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-# Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
