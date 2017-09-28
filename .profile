@@ -46,7 +46,7 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
 
   # Heroku Toolbelt
   export PATH="/usr/local/heroku/bin:$PATH"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+# elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Allegro 5
   # export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
   # export C_INCLUDE_PATH=/usr/local/include
