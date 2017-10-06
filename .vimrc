@@ -52,19 +52,8 @@ Plug 'unblevable/quick-scope'
 " colorscheme
 Plug 'chriskempson/base16-vim'
 
-" syntax
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'elixir-lang/vim-elixir'
-Plug 'elzr/vim-json'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-      \| Plug 'mxw/vim-jsx'
-      \| Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'vim-scripts/indenthtml.vim'
-Plug 'vim-ruby/vim-ruby'
+" syntax support for lots of languages
+Plug 'sheerun/vim-polyglot'
 " align text based on delimiters
 Plug 'junegunn/vim-easy-align'
 " distraction-free writing
@@ -80,30 +69,28 @@ Plug 'kana/vim-textobj-user'
       \| Plug 'sgur/vim-textobj-parameter'
 " auto-complete quotes, parentheses, etc.
 Plug 'Raimondi/delimitMate'
-" motion based on indents of blocks
-Plug 'tmhedberg/indent-motion'
 " language-aware commenting
 Plug 'tomtom/tcomment_vim'
 " add `end` in Ruby, etc.
 Plug 'tpope/vim-endwise'
-" Repeat custom maps with '.'
+" repeat custom maps with '.'
 Plug 'tpope/vim-repeat'
 " provide a 'surround' text-object selection
 Plug 'tpope/vim-surround'
 " display indentation levels
 Plug 'Yggdroot/indentLine'
 
-let delimitMate_balance_matchpairs=1
-let delimitMate_expand_cr=2
-let g:fakeclip_no_default_key_mappings=1
-let g:indentLine_color_term=11
-let g:jsx_ext_required=0
-" let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
-let g:tcommentMaps=0
-let g:used_javascript_libs='react,flux'
-let g:vim_json_syntax_conceal=0
-let g:vim_markdown_conceal=0
-let g:vim_markdown_no_default_key_mappings=1
+let delimitMate_balance_matchpairs = 1
+let delimitMate_expand_cr = 2
+let g:fakeclip_no_default_key_mappings = 1
+let g:indentLine_color_term = 11
+let g:jsx_ext_required = 0
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:tcommentMaps = 0
+let g:used_javascript_libs = 'react,flux'
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_no_default_key_mappings = 1
 
 if executable('ag')
   " use ag over grep
@@ -114,7 +101,7 @@ endif
 call plug#end()
 
 " Globals ---------------------------------------------------------------------
-let mapleader='\'
+let mapleader = '\'
 let g:lasttab = 1
 
 " Colors ----------------------------------------------------------------------
@@ -144,16 +131,18 @@ set undodir=~/.vim/undos
 set backupcopy=yes
 
 " GUI ------------------------------------------------------------------------
-set number
 set colorcolumn=81
 set cursorline
-set scrolloff=999
-set nostartofline
-set ruler
 set laststatus=0
+set nofoldenable
+set nostartofline
+set number
+set ruler
+set scrolloff=999
 set showtabline=2
 " label tabs with numbers
 set tabline=%!ShowTabLine()
+" set tabline=%f
 " eliminate <esc> delays
 set ttimeoutlen=0
 
@@ -161,9 +150,9 @@ set ttimeoutlen=0
 set path=.,**
 
 " Search ---------------------------------------------------------------------
+set gdefault
 set ignorecase
 set smartcase
-set gdefault
 
 " Indentation ----------------------------------------------------------------
 set expandtab
@@ -184,11 +173,13 @@ set nowrap
 " source .vimrc
 noremap <silent> <leader>s :so $MYVIMRC<cr>
 " go to last (i.e. not first) tab
-noremap <leader>0 :tablast<cr>
+noremap <silent> <leader>0 :tablast<cr>
 " go to previous tab
-noremap <leader>l :exe "tabn " . g:lasttab<cr>
+noremap <silent> <leader>l :exe "tabn " . g:lasttab<cr>
 " unhighlight active search
 noremap <silent> <leader>\ :noh<cr>
+" show buffer list
+noremap <leader>b :ls<cr>:b<space>
 " quick-scope
 nmap <leader>q <plug>(QuickScopeToggle)
 vmap <leader>q <plug>(QuickScopeToggle)
@@ -219,8 +210,6 @@ nnoremap Q <nop>
 noremap <cr> :
 " use normal regex instead of Vim's custom one
 noremap / /\v
-" show buffer list
-noremap gb :ls<cr>:b<space>
 " go to last active tab
 noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
@@ -241,27 +230,29 @@ augroup autocmd_group " {
 augroup END " }
 
 " Functions -------------------------------------------------------------------
-" modify tab line to show tab numbers
 function! ShowTabLine()
-  let s = '' " complete tabline goes here
+  " complete tabline goes here
+  let s = ''
   " loop through each tab page
   for t in range(tabpagenr('$'))
-    " select the highlighting for the buffer names
+    " set highlight
     if t + 1 == tabpagenr()
       let s .= '%#TabLineSel#'
     else
       let s .= '%#TabLine#'
     endif
-    " empty space
-    let s .= ' '
     " set the tab page number (for mouse clicks)
-    let s .= '%' . (t + 1) . 'T'
+    let s .= '%' . t . 'T'
+    let s .= ' '
     " set page number string
-    let s .= t + 1 . ' '
+    let s .= t . ' '
     " get buffer names and statuses
-    let n = ''  "temp string for buffer names while we loop and check buftype
-    let m = 0 " &modified counter
-    let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
+    " temp string for buffer names while we loop and check buftype
+    let n = ''
+    " &modified counter
+    let m = 0
+    " counter to avoid last ' '
+    let bc = len(tabpagebuflist(t + 1))
     " loop through each buffer in a tab
     for b in tabpagebuflist(t + 1)
       " buffer types: quickfix gets a [Q], help gets [H]{base fname}
@@ -272,7 +263,6 @@ function! ShowTabLine()
         let n .= '[Q]'
       else
         let n .= pathshorten(bufname(b))
-        "let n .= bufname(b)
       endif
       " check and ++ tab's &modified count
       if getbufvar( b, "&modified" )
@@ -286,21 +276,31 @@ function! ShowTabLine()
     endfor
     " add modified label [n+] where n pages in tab are modified
     if m > 0
-      "let s .= '[' . m . '+]'
-      let s.= '+ '
+      let pluses = ''
+      let plus_count = 0
+      while plus_count < m
+        let pluses .= '+'
+        let plus_count += 1
+      endwhile
+      let s .= pluses . ' '
+    endif
+    " select the highlighting for the buffer names
+    " my default highlighting only underlines the active tab
+    " buffer names.
+    if t + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
     endif
     " add buffer names
     if n == ''
-      let s .= '[No Name]'
+      let s .= '[untitled]'
     else
       let s .= n
     endif
     " switch to no underlining and add final space to buffer list
-    "let s .= '%#TabLineSel#' . ' '
     let s .= ' '
   endfor
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
   return s
 endfunction
 
