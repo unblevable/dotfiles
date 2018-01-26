@@ -45,6 +45,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+
 " locally developed
 " Plug '~/Code/quick-scope'
 Plug 'unblevable/quick-scope'
@@ -60,7 +61,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'
       \| Plug 'junegunn/limelight.vim'
 " provide access to fake clipboard registers (i.e. tmux's paste buffer)
-Plug 'kana/vim-fakeclip'
+" Plug 'kana/vim-fakeclip'
 " define custom text objects
 Plug 'kana/vim-textobj-user'
       \| Plug 'glts/vim-textobj-comment'
@@ -107,8 +108,9 @@ let g:lasttab = 1
 " Colors ----------------------------------------------------------------------
 colorscheme base16-default-dark
 
-" make parts of the GUI transparent
+" hide parts of the GUI
 highlight CursorLineNR  ctermfg=11  ctermbg=bg
+highlight EndOfBuffer   ctermfg=bg  ctermbg=bg
 highlight LineNr        ctermfg=11  ctermbg=bg
 highlight Tabline       ctermfg=fg  ctermbg=bg
 highlight TablineFill   ctermfg=fg  ctermbg=bg
@@ -133,6 +135,7 @@ set backupcopy=yes
 " GUI ------------------------------------------------------------------------
 set colorcolumn=81
 set cursorline
+set hidden
 set laststatus=0
 set nofoldenable
 set nostartofline
@@ -141,7 +144,7 @@ set ruler
 set scrolloff=999
 set showtabline=2
 " label tabs with numbers
-set tabline=%!ShowTabLine()
+" set tabline=%!ShowTabLine()
 " set tabline=%f
 " eliminate <esc> delays
 set ttimeoutlen=0
@@ -224,85 +227,85 @@ augroup autocmd_group " {
   " auto-reload .vimrc
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
   " automatically read files when changes are detected outside of Vim
-  autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
+  " autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
   " set last active tab after switching tabs
   autocmd TabLeave * let g:lasttab = tabpagenr()
 augroup END " }
 
 " Functions -------------------------------------------------------------------
-function! ShowTabLine()
-  " complete tabline goes here
-  let s = ''
-  " loop through each tab page
-  for t in range(tabpagenr('$'))
-    " set highlight
-    if t + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . t . 'T'
-    let s .= ' '
-    " set page number string
-    let s .= t . ' '
-    " get buffer names and statuses
-    " temp string for buffer names while we loop and check buftype
-    let n = ''
-    " &modified counter
-    let m = 0
-    " counter to avoid last ' '
-    let bc = len(tabpagebuflist(t + 1))
-    " loop through each buffer in a tab
-    for b in tabpagebuflist(t + 1)
-      " buffer types: quickfix gets a [Q], help gets [H]{base fname}
-      " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
-      if getbufvar( b, "&buftype" ) == 'help'
-        let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
-      elseif getbufvar( b, "&buftype" ) == 'quickfix'
-        let n .= '[Q]'
-      else
-        let n .= pathshorten(bufname(b))
-      endif
-      " check and ++ tab's &modified count
-      if getbufvar( b, "&modified" )
-        let m += 1
-      endif
-      " no final ' ' added...formatting looks better done later
-      if bc > 1
-        let n .= ' '
-      endif
-      let bc -= 1
-    endfor
-    " add modified label [n+] where n pages in tab are modified
-    if m > 0
-      let pluses = ''
-      let plus_count = 0
-      while plus_count < m
-        let pluses .= '+'
-        let plus_count += 1
-      endwhile
-      let s .= pluses . ' '
-    endif
-    " select the highlighting for the buffer names
-    " my default highlighting only underlines the active tab
-    " buffer names.
-    if t + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-    " add buffer names
-    if n == ''
-      let s .= '[untitled]'
-    else
-      let s .= n
-    endif
-    " switch to no underlining and add final space to buffer list
-    let s .= ' '
-  endfor
-  return s
-endfunction
+" function! ShowTabLine()
+"   " complete tabline goes here
+"   let s = ''
+"   " loop through each tab page
+"   for t in range(tabpagenr('$'))
+"     " set highlight
+"     if t + 1 == tabpagenr()
+"       let s .= '%#TabLineSel#'
+"     else
+"       let s .= '%#TabLine#'
+"     endif
+"     " set the tab page number (for mouse clicks)
+"     let s .= '%' . t . 'T'
+"     let s .= ' '
+"     " set page number string
+"     let s .= t . ' '
+"     " get buffer names and statuses
+"     " temp string for buffer names while we loop and check buftype
+"     let n = ''
+"     " &modified counter
+"     let m = 0
+"     " counter to avoid last ' '
+"     let bc = len(tabpagebuflist(t + 1))
+"     " loop through each buffer in a tab
+"     for b in tabpagebuflist(t + 1)
+"       " buffer types: quickfix gets a [Q], help gets [H]{base fname}
+"       " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
+"       if getbufvar( b, "&buftype" ) == 'help'
+"         let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
+"       elseif getbufvar( b, "&buftype" ) == 'quickfix'
+"         let n .= '[Q]'
+"       else
+"         let n .= pathshorten(bufname(b))
+"       endif
+"       " check and ++ tab's &modified count
+"       if getbufvar( b, "&modified" )
+"         let m += 1
+"       endif
+"       " no final ' ' added...formatting looks better done later
+"       if bc > 1
+"         let n .= ' '
+"       endif
+"       let bc -= 1
+"     endfor
+"     " add modified label [n+] where n pages in tab are modified
+"     if m > 0
+"       let pluses = ''
+"       let plus_count = 0
+"       while plus_count < m
+"         let pluses .= '+'
+"         let plus_count += 1
+"       endwhile
+"       let s .= pluses . ' '
+"     endif
+"     " select the highlighting for the buffer names
+"     " my default highlighting only underlines the active tab
+"     " buffer names.
+"     if t + 1 == tabpagenr()
+"       let s .= '%#TabLineSel#'
+"     else
+"       let s .= '%#TabLine#'
+"     endif
+"     " add buffer names
+"     if n == ''
+"       let s .= '[untitled]'
+"     else
+"       let s .= n
+"     endif
+"     " switch to no underlining and add final space to buffer list
+"     let s .= ' '
+"   endfor
+"   return s
+" endfunction
 
 " put cursor back where it was before invoking a command
 function! StripTrailingWhitespaces()
