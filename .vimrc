@@ -47,14 +47,13 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " locally developed
-" Plug '~/Code/quick-scope'
+" Plug '~/code/quick-scope'
 Plug 'unblevable/quick-scope'
 
 " colorscheme
 Plug 'chriskempson/base16-vim'
-
-" syntax support for lots of languages
-Plug 'sheerun/vim-polyglot'
+" syntax support for ponylang
+Plug 'dleonard0/pony-vim-syntax'
 " align text based on delimiters
 Plug 'junegunn/vim-easy-align'
 " distraction-free writing
@@ -70,6 +69,8 @@ Plug 'kana/vim-textobj-user'
       \| Plug 'sgur/vim-textobj-parameter'
 " auto-complete quotes, parentheses, etc.
 Plug 'Raimondi/delimitMate'
+" syntax support for lots of languages
+Plug 'sheerun/vim-polyglot'
 " language-aware commenting
 Plug 'tomtom/tcomment_vim'
 " add `end` in Ruby, etc.
@@ -81,12 +82,14 @@ Plug 'tpope/vim-surround'
 " display indentation levels
 Plug 'Yggdroot/indentLine'
 
+" a a a b b c
 let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_cr = 2
 let g:fakeclip_no_default_key_mappings = 1
 let g:indentLine_color_term = 11
 let g:jsx_ext_required = 0
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_max_chars = 256
 let g:tcommentMaps = 0
 let g:used_javascript_libs = 'react,flux'
 let g:vim_json_syntax_conceal = 0
@@ -104,6 +107,24 @@ call plug#end()
 " Globals ---------------------------------------------------------------------
 let mapleader = '\'
 let g:lasttab = 1
+
+" Auto-commands ---------------------------------------------------------------
+augroup autocmd_group " {
+  autocmd!
+  " return to last known position when opening file
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  " remove trailing whitespace
+  autocmd BufWritePre * :call StripTrailingWhitespaces()
+  " auto-reload .vimrc
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  " automatically read files when changes are detected outside of Vim
+  " autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
+  " set last active tab after switching tabs
+  autocmd TabLeave * let g:lasttab = tabpagenr()
+
+  autocmd ColorScheme * highlight QuickScopePrimary ctermfg=2
+  autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=4
+augroup END " }
 
 " Colors ----------------------------------------------------------------------
 colorscheme base16-default-dark
@@ -217,20 +238,6 @@ noremap / /\v
 noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
-" Auto-commands ---------------------------------------------------------------
-augroup autocmd_group " {
-  autocmd!
-  " return to last known position when opening file
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  " remove trailing whitespace
-  autocmd BufWritePre * :call StripTrailingWhitespaces()
-  " auto-reload .vimrc
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-  " automatically read files when changes are detected outside of Vim
-  " autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
-  " set last active tab after switching tabs
-  autocmd TabLeave * let g:lasttab = tabpagenr()
-augroup END " }
 
 " Functions -------------------------------------------------------------------
 " function! ShowTabLine()

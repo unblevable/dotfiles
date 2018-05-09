@@ -27,6 +27,8 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export PATH="$HOME/.cargo/bin:$PATH"
   export PATH="/usr/local/heroku/bin:$PATH"
   export PATH="$PATH:$(go env GOPATH)/bin"
+  # rely on `site` module to get platform-specific user install directory
+  export PATH="$PATH:$(python -m site --user-base)/bin"
 
 
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
