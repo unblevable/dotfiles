@@ -50,6 +50,8 @@ call plug#begin('~/.vim/plugged')
 " Plug '~/code/quick-scope'
 Plug 'unblevable/quick-scope'
 
+" modify Vim word motions
+Plug 'chaoren/vim-wordmotion'
 " colorscheme
 Plug 'chriskempson/base16-vim'
 " syntax support for ponylang
@@ -63,10 +65,11 @@ Plug 'junegunn/goyo.vim'
 " Plug 'kana/vim-fakeclip'
 " define custom text objects
 Plug 'kana/vim-textobj-user'
+      \| Plug 'coderifous/textobj-word-column.vim'
       \| Plug 'glts/vim-textobj-comment'
-      \| Plug 'kana/vim-textobj-indent'
-      \| Plug 'Julian/vim-textobj-variable-segment'
+      \| Plug 'michaeljsmith/vim-indent-object'
       \| Plug 'sgur/vim-textobj-parameter'
+      " \| Plug 'Julian/vim-textobj-variable-segment'
 " auto-complete quotes, parentheses, etc.
 Plug 'Raimondi/delimitMate'
 " syntax support for lots of languages
@@ -78,7 +81,8 @@ Plug 'tpope/vim-endwise'
 " repeat custom maps with '.'
 Plug 'tpope/vim-repeat'
 " provide a 'surround' text-object selection
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 " display indentation levels
 Plug 'Yggdroot/indentLine'
 
@@ -93,6 +97,7 @@ let g:qs_max_chars = 256
 let g:tcommentMaps = 0
 let g:used_javascript_libs = 'react,flux'
 let g:vim_json_syntax_conceal = 0
+let g:vim_json_warnings = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_no_default_key_mappings = 1
 
@@ -114,35 +119,32 @@ augroup autocmd_group " {
   " return to last known position when opening file
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   " remove trailing whitespace
-  autocmd BufWritePre * :call StripTrailingWhitespaces()
+  autocmd BufWritePre * call StripTrailingWhitespaces()
   " auto-reload .vimrc
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
   " automatically read files when changes are detected outside of Vim
   " autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
   " set last active tab after switching tabs
   autocmd TabLeave * let g:lasttab = tabpagenr()
+  " hide parts of the GUI; mark any character past textwidth or on colorcolumn
+  autocmd ColorScheme * highlight CursorLineNR  ctermfg=11  ctermbg=bg
+        \ | highlight EndOfBuffer   ctermfg=bg  ctermbg=bg
+        \ | highlight LineNr        ctermfg=11  ctermbg=bg
+        \ | highlight Tabline       ctermfg=fg  ctermbg=bg
+        \ | highlight TablineFill   ctermfg=fg  ctermbg=bg
+        \ | highlight TablineSel    ctermfg=2   ctermbg=bg
+        \ | highlight StatusLine    ctermfg=2   ctermbg=bg
+        \ | highlight StatusLineNC  ctermfg=fg  ctermbg=bg
+        \ | highlight VertSplit     ctermfg=bg  ctermbg=bg
+        \ | call matchadd('ColorColumn', '\%81v', 100)
+        \ | highlight ColorColumn   ctermfg=1   ctermbg=NONE  cterm=bold
 
-  autocmd ColorScheme * highlight QuickScopePrimary ctermfg=2
-  autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=4
+  autocmd ColorScheme * highlight QuickScopePrimary ctermfg=2 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=4 cterm=underline
 augroup END " }
 
 " Colors ----------------------------------------------------------------------
 colorscheme base16-default-dark
-
-" hide parts of the GUI
-highlight CursorLineNR  ctermfg=11  ctermbg=bg
-highlight EndOfBuffer   ctermfg=bg  ctermbg=bg
-highlight LineNr        ctermfg=11  ctermbg=bg
-highlight Tabline       ctermfg=fg  ctermbg=bg
-highlight TablineFill   ctermfg=fg  ctermbg=bg
-highlight TablineSel    ctermfg=2   ctermbg=bg
-highlight StatusLine    ctermfg=2   ctermbg=bg
-highlight StatusLineNC  ctermfg=fg  ctermbg=bg
-highlight VertSplit     ctermfg=bg  ctermbg=bg
-
-" mark any character past textwidth or on colorcolumn
-call matchadd('ColorColumn', '\%81v', 100)
-highlight ColorColumn   ctermfg=1   ctermbg=NONE  cterm=bold
 
 " Saving and undoing ----------------------------------------------------------
 set undofile
@@ -182,7 +184,6 @@ set smartcase
 set expandtab
 set shiftround
 set shiftwidth=2
-set smartindent
 set softtabstop=2
 set tabstop=2
 
@@ -238,81 +239,7 @@ noremap / /\v
 noremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
-
 " Functions -------------------------------------------------------------------
-" function! ShowTabLine()
-"   " complete tabline goes here
-"   let s = ''
-"   " loop through each tab page
-"   for t in range(tabpagenr('$'))
-"     " set highlight
-"     if t + 1 == tabpagenr()
-"       let s .= '%#TabLineSel#'
-"     else
-"       let s .= '%#TabLine#'
-"     endif
-"     " set the tab page number (for mouse clicks)
-"     let s .= '%' . t . 'T'
-"     let s .= ' '
-"     " set page number string
-"     let s .= t . ' '
-"     " get buffer names and statuses
-"     " temp string for buffer names while we loop and check buftype
-"     let n = ''
-"     " &modified counter
-"     let m = 0
-"     " counter to avoid last ' '
-"     let bc = len(tabpagebuflist(t + 1))
-"     " loop through each buffer in a tab
-"     for b in tabpagebuflist(t + 1)
-"       " buffer types: quickfix gets a [Q], help gets [H]{base fname}
-"       " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
-"       if getbufvar( b, "&buftype" ) == 'help'
-"         let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
-"       elseif getbufvar( b, "&buftype" ) == 'quickfix'
-"         let n .= '[Q]'
-"       else
-"         let n .= pathshorten(bufname(b))
-"       endif
-"       " check and ++ tab's &modified count
-"       if getbufvar( b, "&modified" )
-"         let m += 1
-"       endif
-"       " no final ' ' added...formatting looks better done later
-"       if bc > 1
-"         let n .= ' '
-"       endif
-"       let bc -= 1
-"     endfor
-"     " add modified label [n+] where n pages in tab are modified
-"     if m > 0
-"       let pluses = ''
-"       let plus_count = 0
-"       while plus_count < m
-"         let pluses .= '+'
-"         let plus_count += 1
-"       endwhile
-"       let s .= pluses . ' '
-"     endif
-"     " select the highlighting for the buffer names
-"     " my default highlighting only underlines the active tab
-"     " buffer names.
-"     if t + 1 == tabpagenr()
-"       let s .= '%#TabLineSel#'
-"     else
-"       let s .= '%#TabLine#'
-"     endif
-"     " add buffer names
-"     if n == ''
-"       let s .= '[untitled]'
-"     else
-"       let s .= n
-"     endif
-"     " switch to no underlining and add final space to buffer list
-"     let s .= ' '
-"   endfor
-"   return s
-" endfunction
 
 " put cursor back where it was before invoking a command
 function! StripTrailingWhitespaces()

@@ -29,6 +29,7 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export PATH="$PATH:$(go env GOPATH)/bin"
   # rely on `site` module to get platform-specific user install directory
   export PATH="$PATH:$(python -m site --user-base)/bin"
+  export PATH="$PATH:/usr/local/lib/python2.7"
 
 
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
