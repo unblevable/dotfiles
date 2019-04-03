@@ -69,7 +69,6 @@ Plug 'kana/vim-textobj-user'
       \| Plug 'glts/vim-textobj-comment'
       \| Plug 'michaeljsmith/vim-indent-object'
       \| Plug 'sgur/vim-textobj-parameter'
-      " \| Plug 'Julian/vim-textobj-variable-segment'
 " auto-complete quotes, parentheses, etc.
 Plug 'Raimondi/delimitMate'
 " syntax support for lots of languages
@@ -81,7 +80,8 @@ Plug 'tpope/vim-endwise'
 " repeat custom maps with '.'
 Plug 'tpope/vim-repeat'
 " provide a 'surround' text-object selection
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
+" provide additional text objects
 Plug 'wellle/targets.vim'
 " display indentation levels
 Plug 'Yggdroot/indentLine'
@@ -100,6 +100,15 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_json_warnings = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_no_default_key_mappings = 1
+let g:wordmotion_mappings = {
+      \ 'w' : '<M-w>',
+      \ 'b' : '<M-b>',
+      \ 'e' : '<M-e>',
+      \ 'ge' : 'g<M-e>',
+      \ 'aw' : 'a<M-w>',
+      \ 'iw' : 'i<M-w>',
+      \ '<C-R><C-W>' : '<C-R><M-w>'
+      \ }
 
 if executable('ag')
   " use ag over grep
