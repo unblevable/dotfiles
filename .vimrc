@@ -50,6 +50,8 @@ call plug#begin('~/.vim/plugged')
 " Plug '~/code/quick-scope'
 Plug 'unblevable/quick-scope'
 
+" switch between single and multi-line statements
+Plug 'AndrewRadev/splitjoin.vim'
 " modify Vim word motions
 Plug 'chaoren/vim-wordmotion'
 " colorscheme
@@ -196,7 +198,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-" Text & whitespace -----------------------------------------------------------
+" Text & other whitespace -----------------------------------------------------
 set conceallevel=0
 set formatoptions=cqj
 set list
