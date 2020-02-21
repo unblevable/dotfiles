@@ -59,4 +59,3 @@ export PATH="/Users/brianle/.ebcli-virtual-env/executables:$PATH"
 
 # Helm v2
 export PATH="/usr/local/opt/helm@2/bin:$PATH"
->>>>>>> Stashed changes
