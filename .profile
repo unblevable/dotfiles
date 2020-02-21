@@ -16,7 +16,6 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export DOCKER_HOST="tcp://localhost:4243"
   export ELM_HOME="$HOME/.nvm/v0.10.26/lib/node_modules/elm/share"
   export GOPATH="$HOME/.go"
-  export NVM_DIR="/home/unblevable/.nvm"
 
   # export PATH="$PATH:$HOME/local/elixir/bin"
   export PATH="$PATH:$HOME/.rvm/bin"
@@ -32,13 +31,19 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export PATH="$PATH:/usr/local/lib/python2.7"
 
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
-  # Allegro 5
-  # export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-  # export C_INCLUDE_PATH=/usr/local/include
+#   # Allegro 5
+#   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+#   export C_INCLUDE_PATH=/usr/local/include
 fi
 
 # for pipenv
 export PATH="$HOME/.local/bin:$PATH"
+
+# EB CLI
+export PATH="$HOME/.ebcli-virtual-env/executables:$PATH"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -48,14 +53,10 @@ export NVM_DIR="$HOME/.nvm"
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin"
 
-export PATH="/Users/brianle/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-# EB CLI
-export PATH="/Users/brianle/.ebcli-virtual-env/executables:$PATH"
 
 # Helm v2
 export PATH="/usr/local/opt/helm@2/bin:$PATH"
