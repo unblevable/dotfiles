@@ -101,6 +101,7 @@ let g:used_javascript_libs = 'react,flux'
 let g:vim_json_syntax_conceal = 0
 let g:vim_json_warnings = 0
 let g:vim_markdown_conceal = 0
+let g:vim_markdown_fenced_languages = ['jsx=js']
 let g:vim_markdown_no_default_key_mappings = 1
 let g:wordmotion_mappings = {
       \ 'w' : '<M-w>',
@@ -127,6 +128,11 @@ let g:lasttab = 1
 " Auto-commands ---------------------------------------------------------------
 augroup autocmd_group " {
   autocmd!
+  " TODO: find out where this is actually getting set...TComment?
+  " disable auto-wrapping comments
+  autocmd BufNew,BufRead * setlocal formatoptions-=c
+  " set textwidth by filetype
+  autocmd BufNew,BufRead *.ex,*.exs setlocal textwidth=100
   " return to last known position when opening file
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   " remove trailing whitespace
@@ -147,11 +153,15 @@ augroup autocmd_group " {
         \ | highlight StatusLine    ctermfg=2   ctermbg=bg
         \ | highlight StatusLineNC  ctermfg=fg  ctermbg=bg
         \ | highlight VertSplit     ctermfg=bg  ctermbg=bg
-        \ | call matchadd('ColorColumn', '\%81v', 100)
+        \ | call matchadd('ColorColumn', '\%101v', 100)
         \ | highlight ColorColumn   ctermfg=1   ctermbg=NONE  cterm=bold
 
   autocmd ColorScheme * highlight QuickScopePrimary ctermfg=2 cterm=underline
   autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=4 cterm=underline
+  " indentLine does not work if `conceallevel` is not set to 1 or 2, but this
+  " interferes with displaying markdown, so disable the plugin for markdown
+  " files
+  autocmd FileType markdown let g:indentLine_enabled=0
 augroup END " }
 
 " Colors ----------------------------------------------------------------------
@@ -200,10 +210,11 @@ set tabstop=2
 
 " Text & other whitespace -----------------------------------------------------
 set conceallevel=0
-set formatoptions=cqj
+set formatoptions=qj
 set list
 set listchars=tab:→\ ,eol:¬,nbsp:+
 set nowrap
+set textwidth=80
 
 " Leader maps -----------------------------------------------------------------
 " source .vimrc
