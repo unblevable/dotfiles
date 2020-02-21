@@ -31,22 +31,32 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
   export PATH="$PATH:$(python -m site --user-base)/bin"
   export PATH="$PATH:/usr/local/lib/python2.7"
 
-  # for pipenv
-  export PATH="$HOME/.local/bin:$PATH"
-
-
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Allegro 5
   # export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
   # export C_INCLUDE_PATH=/usr/local/include
 fi
 
-# Load pyenv automatically by adding
-# the following to ~/.bashrc:
+# for pipenv
+export PATH="$HOME/.local/bin:$PATH"
 
-export PATH="/home/unblevable/.pyenv/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+export GOPATH=$HOME/go
+export PATH="$PATH:$GOPATH/bin"
+
+export PATH="/Users/brianle/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+# EB CLI
+export PATH="/Users/brianle/.ebcli-virtual-env/executables:$PATH"
+
+# Helm v2
+export PATH="/usr/local/opt/helm@2/bin:$PATH"
+>>>>>>> Stashed changes
